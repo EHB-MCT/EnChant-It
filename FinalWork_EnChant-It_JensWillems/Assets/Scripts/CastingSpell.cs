@@ -1,65 +1,46 @@
 using System;
-using Meta.WitAi;
-using Meta.WitAi.Json;
 using UnityEngine;
-
-
 public class CastingSpell : MonoBehaviour
 {
-    public void SetColor(Transform transform, Color color)
-    {
-        transform.GetComponent<Renderer>().material.color = color;
-    }
+    public GameObject Fire;
+    public Camera mainCamera;
+    public float distanceFromCamera = 5f;
+    public Book Book;
+    public AutoFlip AutoFlip;
 
-
-    public void UpdateColor(WitResponseNode commandResult)
+    public void UpdateSpell(string[] spells)
     {
-        string[] colorNames = commandResult.GetAllEntityValues("color:color");
-        string[] shapes = commandResult.GetAllEntityValues("shape:shape");
-        UpdateColor(colorNames, shapes);
-    }
-
-    public void UpdateColor(string[] colorNames, string[] shapes)
-    {
-        if (shapes.Length != 0 && colorNames.Length != shapes.Length)
+        Debug.Log("Update spells being done!");
+        if (spells.Length != 0)
         {
-            return;
-        }
-        if (shapes.Length == 0 || shapes[0] == "color")
-        {
-            UpdateColorAllShapes(colorNames);
+            CastSpell(spells);
             return;
         }
 
-        for (var entity = 0; entity < colorNames.Length; entity++)
+        if (spells.Length == 0 || spells[0] == "spell")
         {
-            if (!ColorUtility.TryParseHtmlString(colorNames[entity], out var color)) return;
-
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                Transform child = transform.GetChild(i);
-                if (String.Equals(shapes[entity], child.name,
-                        StringComparison.CurrentCultureIgnoreCase))
-                {
-                    SetColor(child, color);
-                    break;
-                }
-            }
+            return;
         }
     }
-    public void UpdateColorAllShapes(string[] colorNames)
+
+    public void CastSpell(string[] spellNames)
     {
-        var unspecifiedShape = 0;
-        for (var entity = 0; entity < colorNames.Length; entity++)
+        if (spellNames.Length > 0)
         {
-            if (!ColorUtility.TryParseHtmlString(colorNames[entity], out var color)) return;
+            string spellName = spellNames[0];
 
-            var splitLimit = (transform.childCount / colorNames.Length) * (entity + 1);
-            while (unspecifiedShape < splitLimit)
+            if (spellName.Equals("fire", StringComparison.OrdinalIgnoreCase))
             {
-                SetColor(transform.GetChild(unspecifiedShape), color);
-                unspecifiedShape++;
+                Debug.Log("found spell");
+                //Book.OnMouseDragRightPage();
+                AutoFlip.FlipRightPage();
+
+                Vector3 spawnPosition = mainCamera.transform.position + mainCamera.transform.forward * distanceFromCamera;
+
+                GameObject fireInstance = Instantiate(Fire, spawnPosition, Quaternion.identity);
+                fireInstance.SetActive(true);
             }
         }
     }
+
 }

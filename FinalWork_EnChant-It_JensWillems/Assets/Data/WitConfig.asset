@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _clientAccessToken: DNT34Y6NPEBNABOQD7543HZRN5P7RCSZ
   _appInfo:
-    name: test_app_001
+    name: Enchant-It-JensWillems
     id: 411138711256147
     lang: en
     isPrivate: 0
     createdAt: 2024-01-28T02:48:11-0800
     trainingStatus: 1
-    lastTrainDuration: 58
-    lastTrainedAt: 2024-01-28T03:47:40-0800
-    nextTrainAt: 2024-01-28T03:46:42-0800
+    lastTrainDuration: 91
+    lastTrainedAt: 2024-05-06T00:11:43-0700
+    nextTrainAt: 2024-05-06T00:10:12-0700
     intents:
     - id: 421732653615164
       name: cast_spell
@@ -33,7 +33,30 @@ MonoBehaviour:
         id: 346290738219226
       - name: spell:spell
         id: 2135672603455542
+    - id: 1442295973345056
+      name: menu
+      entities:
+      - name: book:book
+        id: 1423072381658529
     entities:
+    - name: book
+      id: 789189009825397
+      lookups:
+      - free-text
+      - keywords
+      roles:
+      - name: book
+        id: 1423072381658529
+      keywords:
+      - keyword: book
+        synonyms:
+        - book
+      - keyword: menu
+        synonyms:
+        - menu
+      - keyword: spellbook
+        synonyms:
+        - spellbook
     - name: color
       id: 1063295398266512
       lookups:
