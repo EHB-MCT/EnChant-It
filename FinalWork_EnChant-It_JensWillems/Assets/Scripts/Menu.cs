@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
+    public GameObject Spellbook;
+    public Book Book;
+    public AutoFlip AutoFlip;
+
+    private void Start()
+    {
+        Spellbook.SetActive(false);
+    }
     public void UpdateMenu(string[] menuCommands)
     {
         if (menuCommands.Length != 0)
@@ -27,9 +35,24 @@ public class Menu : MonoBehaviour
 
             if (menuCommandName.Equals("book", StringComparison.OrdinalIgnoreCase))
             {
+                Spellbook.SetActive(true);
                 Debug.Log("opening book");
 
+            } else if (menuCommandName.Equals("Next", StringComparison.OrdinalIgnoreCase))
+            {
+                AutoFlip.FlipRightPage();
+
             }
+            else if (menuCommandName.Equals("Previous", StringComparison.OrdinalIgnoreCase))
+            {
+                AutoFlip.FlipLeftPage();
+
+            }
+            else if (menuCommandName.Equals("close", StringComparison.OrdinalIgnoreCase))
+            {
+                Spellbook.SetActive(false);
+            }
+
         }
     }
 }
