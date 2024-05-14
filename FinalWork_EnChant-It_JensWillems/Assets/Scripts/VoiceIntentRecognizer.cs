@@ -1,4 +1,3 @@
-using System;
 using Meta.WitAi;
 using Meta.WitAi.Data.Intents;
 using Meta.WitAi.Json;
@@ -6,10 +5,7 @@ using UnityEngine;
 
 public class VoiceIntentRecognizer : MonoBehaviour
 {
-    public GameObject Fire;
-    public Camera mainCamera;
-    public float DistanceFromCamera = 5f;
-    
+    [Header("References")]
     public CastingSpell CastingSpell;
     public Menu Menu;
     public VoiceAnswers VoiceAnswers;

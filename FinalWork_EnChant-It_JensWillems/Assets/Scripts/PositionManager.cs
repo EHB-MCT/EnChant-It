@@ -3,23 +3,32 @@ using System.Collections.Generic;
 
 public class PositionManager : MonoBehaviour
 {
-    public List<Transform> positions = new List<Transform>();
-    public GameObject PlayerGameObject;
+    [Header("References")]
+    public List<Transform> chapter1Positions = new List<Transform>(); 
+    public List<Transform> chapter2Positions = new List<Transform>(); 
+    public GameObject playerGameObject;
 
-    private void Start()
+    public void TeleportToChapter(ChapterController.Chapter chapter)
     {
-        TeleportToPosition(0);
-    }
+        List<Transform> positions = null;
 
-    public void TeleportToPosition(int index)
-    {
-        if (index >= 0 && index < positions.Count)
+        switch (chapter)
         {
-            Transform newPosition = positions[index];
-            if (PlayerGameObject != null)
+            case ChapterController.Chapter.Chapter1:
+                positions = chapter1Positions;
+                break;
+            case ChapterController.Chapter.Chapter2:
+                positions = chapter2Positions;
+                break;
+        }
+
+        if (positions != null && positions.Count > 0)
+        {
+            Transform newPosition = positions[0]; 
+            if (playerGameObject != null)
             {
-                PlayerGameObject.transform.position = newPosition.position;
-                PlayerGameObject.transform.rotation = newPosition.rotation;
+                playerGameObject.transform.position = newPosition.position;
+                playerGameObject.transform.rotation = newPosition.rotation;
             }
             else
             {
@@ -28,7 +37,7 @@ public class PositionManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Index out of range.");
+            Debug.LogError("No teleportation points found for the selected chapter.");
         }
     }
 }

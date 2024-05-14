@@ -9670,7 +9670,6 @@ GameObject:
   - component: {fileID: 8948535753706325660}
   - component: {fileID: 7797534902186364569}
   - component: {fileID: 3496627431947078709}
-  - component: {fileID: 7667989099122842603}
   m_Layer: 0
   m_Name: PS_Fireball
   m_TagString: Untagged
@@ -9756,19 +9755,3 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.13
   m_Center: {x: 3.64, y: 0, z: 0}
---- !u!114 &7667989099122842603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8305768917454030874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce93ac7ff3aabca4d8874dfecbbd7f15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_gridWidth: 10
-  m_gridHeight: 10
-  m_firePrefab: {fileID: 1000014143660356, guid: de56f83bbe2eaa948b05bc3760275014, type: 3}
-  m_destroyOnCollision: 1
