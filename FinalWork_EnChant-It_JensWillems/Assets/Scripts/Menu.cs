@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour
     public GameObject Spellbook;
     public Book Book;
     public AutoFlip AutoFlip;
+    public bool OpenMenuFirstTime = false;
 
     private void Start()
     {
@@ -36,6 +37,7 @@ public class Menu : MonoBehaviour
             if (menuCommandName.Equals("book", StringComparison.OrdinalIgnoreCase))
             {
                 Spellbook.SetActive(true);
+            OpenMenuFirstTime = true;
                 Debug.Log("opening book");
 
             } else if (menuCommandName.Equals("Next", StringComparison.OrdinalIgnoreCase))

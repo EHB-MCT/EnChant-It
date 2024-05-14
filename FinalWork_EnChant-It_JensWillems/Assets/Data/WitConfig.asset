@@ -20,9 +20,9 @@ MonoBehaviour:
     isPrivate: 0
     createdAt: 2024-01-28T02:48:11-0800
     trainingStatus: 1
-    lastTrainDuration: 91
-    lastTrainedAt: 2024-05-06T00:11:43-0700
-    nextTrainAt: 2024-05-06T00:10:12-0700
+    lastTrainDuration: 90
+    lastTrainedAt: 2024-05-13T05:31:42-0700
+    nextTrainAt: 2024-05-13T05:30:12-0700
     intents:
     - id: 421732653615164
       name: cast_spell
@@ -38,7 +38,25 @@ MonoBehaviour:
       entities:
       - name: book:book
         id: 1423072381658529
+    - id: 429720803146855
+      name: say_answer
+      entities:
+      - name: Answer:Answer
+        id: 1528447791348202
     entities:
+    - name: Answer
+      id: 306528635853278
+      lookups:
+      - free-text
+      - keywords
+      roles:
+      - name: Answer
+        id: 1528447791348202
+      keywords:
+      - keyword: Yes
+        synonyms:
+        - i am
+        - yes
     - name: book
       id: 789189009825397
       lookups:
@@ -48,12 +66,30 @@ MonoBehaviour:
       - name: book
         id: 1423072381658529
       keywords:
+      - keyword: Close
+        synonyms:
+        - Close
+        - close book
+      - keyword: Next
+        synonyms:
+        - Next
+        - right
+      - keyword: Previous
+        synonyms:
+        - Previous
+        - left
       - keyword: book
         synonyms:
         - book
-      - keyword: menu
-        synonyms:
         - menu
+        - open book
+        - setting
+        - settings
+      - keyword: menu
+        synonyms: []
+      - keyword: page
+        synonyms:
+        - page
       - keyword: spellbook
         synonyms:
         - spellbook

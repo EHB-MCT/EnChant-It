@@ -12,6 +12,7 @@ public class VoiceIntentRecognizer : MonoBehaviour
     
     public CastingSpell CastingSpell;
     public Menu Menu;
+    public VoiceAnswers VoiceAnswers;
 
 
     public void GetIntent(WitResponseNode commandResult)
@@ -30,10 +31,16 @@ public class VoiceIntentRecognizer : MonoBehaviour
         {
             string[] menuOptions = commandResult.GetAllEntityValues("book:book");
             Menu.UpdateMenu(menuOptions);
-
+            
+        }
+        else if (intentName == "say_answer")
+        {
+            string[] answerOptions = commandResult.GetAllEntityValues("Answer:Answer");
+            Debug.Log("this being done");
+            VoiceAnswers.UpdateAnswer(answerOptions);
         }
         else
-        {
+            {
             Debug.LogError("This intent or word doesn't exist in the Wit.AI config");
         }
 
