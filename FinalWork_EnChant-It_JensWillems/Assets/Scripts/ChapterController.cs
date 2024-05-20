@@ -16,7 +16,19 @@ public class ChapterController : MonoBehaviour
     {
         currentChapter = newChapter;
         Debug.Log("Changed to chapter: " + currentChapter);
+
         positionManager.TeleportToChapter(currentChapter);
+
+        // Debug player position after changing chapters
+        if (positionManager.playerGameObject != null)
+        {
+            Vector3 playerPosition = positionManager.playerGameObject.transform.position;
+            Debug.Log("Player position after changing chapter: " + playerPosition);
+        }
+        else
+        {
+            Debug.LogError("Player GameObject is not assigned.");
+        }
     }
 
     private void OnValidate()
