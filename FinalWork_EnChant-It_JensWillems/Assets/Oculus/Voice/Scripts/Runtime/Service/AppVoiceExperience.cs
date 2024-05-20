@@ -51,6 +51,7 @@ namespace Oculus.Voice
         {
             get => witRuntimeConfiguration;
             set => witRuntimeConfiguration = value;
+       
         }
 
         public WitConfiguration Configuration => witRuntimeConfiguration?.witConfiguration;
@@ -146,6 +147,7 @@ namespace Oculus.Voice
             if (CanActivateAudio() && CanSend())
             {
                 return voiceServiceImpl.Activate(requestOptions, requestEvents);
+                Debug.Log("test");
             }
             return null;
         }

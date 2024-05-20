@@ -7,7 +7,7 @@ public class TheVoice : MonoBehaviour
     public Menu Menu;
     public VoiceAnswers VoiceAnswers;
     public PositionManager PositionManager;
-    public ChapterController chapterController; // Reference to the ChapterController script
+    public ChapterController chapterController; 
 
     public AudioClip[] audioClips;
 

@@ -1,17 +1,11 @@
-using Meta.WitAi;
 using Meta.WitAi.Requests;
 using Oculus.Voice;
 using UnityEngine;
 
 public class VoiceActivation : MonoBehaviour
 {
-    [Tooltip("Reference to the AppVoiceExperience")]
     [SerializeField] private AppVoiceExperience _appVoiceExperience;
-
-    [Tooltip("Whether to immediately send data to service or to wait for the audio threshold")]
     [SerializeField] private bool _activateImmediately = false;
-
-    [Tooltip("Cooldown time in seconds")]
     [SerializeField] private float cooldownTime = 3f;
     private VoiceServiceRequest _request;
     private bool _isActive = false;
@@ -23,7 +17,6 @@ public class VoiceActivation : MonoBehaviour
         {
             _appVoiceExperience = FindObjectOfType<AppVoiceExperience>();
         }
-        ActivateVoiceService();
     }
 
     private void Update()
@@ -37,8 +30,7 @@ public class VoiceActivation : MonoBehaviour
     private void ActivateVoiceService()
     {
         _request = _activateImmediately ? _appVoiceExperience.ActivateImmediately(GetRequestEvents()) :
-                                         _appVoiceExperience.Activate(GetRequestEvents());
-
+                                          _appVoiceExperience.Activate(GetRequestEvents());
         _lastActivationTime = Time.time;
     }
 

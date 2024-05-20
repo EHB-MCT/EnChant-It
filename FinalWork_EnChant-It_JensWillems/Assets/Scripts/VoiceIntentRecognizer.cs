@@ -2,43 +2,30 @@ using Meta.WitAi;
 using Meta.WitAi.Data.Intents;
 using Meta.WitAi.Json;
 using UnityEngine;
-
 public class VoiceIntentRecognizer : MonoBehaviour
 {
-    [Header("References")]
     public CastingSpell CastingSpell;
     public Menu Menu;
     public VoiceAnswers VoiceAnswers;
 
-
     public void GetIntent(WitResponseNode commandResult)
     {
-        WitIntentData witIntentData = commandResult.GetFirstIntentData();
         string intentName = commandResult.GetIntentName();
 
-        Debug.Log("Intent Name: " + intentName);
-
-        if (intentName == "cast_spell")
+        switch (intentName)
         {
-            string[] spells = commandResult.GetAllEntityValues("spell:spell");
-            CastingSpell.UpdateSpell(spells);
+            case "cast_spell":
+                CastingSpell.UpdateSpell(commandResult.GetAllEntityValues("spell:spell"));
+                break;
+            case "menu":
+                Menu.UpdateMenu(commandResult.GetAllEntityValues("book:book"));
+                break;
+            case "say_answer":
+                VoiceAnswers.UpdateAnswer(commandResult.GetAllEntityValues("Answer:Answer"));
+                break;
+            default:
+                Debug.LogError("This intent or word doesn't exist in the Wit.AI config");
+                break;
         }
-        else if (intentName == "menu")
-        {
-            string[] menuOptions = commandResult.GetAllEntityValues("book:book");
-            Menu.UpdateMenu(menuOptions);
-            
-        }
-        else if (intentName == "say_answer")
-        {
-            string[] answerOptions = commandResult.GetAllEntityValues("Answer:Answer");
-            Debug.Log("this being done");
-            VoiceAnswers.UpdateAnswer(answerOptions);
-        }
-        else
-            {
-            Debug.LogError("This intent or word doesn't exist in the Wit.AI config");
-        }
-
     }
 }
