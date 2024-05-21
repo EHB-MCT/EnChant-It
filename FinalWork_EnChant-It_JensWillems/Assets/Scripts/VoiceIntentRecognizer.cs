@@ -24,7 +24,7 @@ public class VoiceIntentRecognizer : MonoBehaviour
                 VoiceAnswers.UpdateAnswer(commandResult.GetAllEntityValues("Answer:Answer"));
                 break;
             default:
-                Debug.LogError("This intent or word doesn't exist in the Wit.AI config");
+                Debug.LogWarning("This intent or word doesn't exist in the Wit.AI config");
                 break;
         }
     }

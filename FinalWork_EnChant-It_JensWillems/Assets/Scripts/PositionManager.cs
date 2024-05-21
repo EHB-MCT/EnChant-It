@@ -1,50 +1,6 @@
-/*using UnityEngine;
-using System.Collections.Generic;
-
-public class PositionManager : MonoBehaviour
-{
-    [Header("References")]
-    public List<Transform> chapter1Positions = new List<Transform>(); 
-    public List<Transform> chapter2Positions = new List<Transform>(); 
-    public GameObject playerGameObject;
-
-    public void TeleportToChapter(ChapterController.Chapter chapter)
-    {
-        List<Transform> positions = null;
-
-        switch (chapter)
-        {
-            case ChapterController.Chapter.Chapter1:
-                positions = chapter1Positions;
-                break;
-            case ChapterController.Chapter.Chapter2:
-                positions = chapter2Positions;
-                break;
-        }
-
-        if (positions != null && positions.Count > 0)
-        {
-            Transform newPosition = positions[0]; 
-            if (playerGameObject != null)
-            {
-                playerGameObject.transform.position = newPosition.position;
-                playerGameObject.transform.rotation = newPosition.rotation;
-            }
-            else
-            {
-                Debug.LogError("Player GameObject is not assigned.");
-            }
-        }
-        else
-        {
-            Debug.LogError("No teleportation points found for the selected chapter.");
-        }
-    }
-}
-*/
-
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class PositionManager : MonoBehaviour
 {
@@ -52,6 +8,12 @@ public class PositionManager : MonoBehaviour
     public List<Transform> chapter1Positions = new List<Transform>();
     public List<Transform> chapter2Positions = new List<Transform>();
     public GameObject playerGameObject;
+    public GameObject teleportEffectPrefab; 
+    public GameObject spawnEffectPrefab;   
+    public Transform teleportEffectParent;  
+    public Transform spawnEffectParent;     
+
+    private bool transitioningBetweenChapters = false;
 
     public void TeleportToChapter(ChapterController.Chapter chapter)
     {
@@ -72,19 +34,11 @@ public class PositionManager : MonoBehaviour
             Transform newPosition = positions[0];
             if (playerGameObject != null)
             {
-                var playerController = playerGameObject.GetComponent<OVRPlayerController>();
-                if (playerController != null)
+                if (chapter != ChapterController.Chapter.Chapter1)
                 {
-                    playerController.enabled = false;
+                    transitioningBetweenChapters = true;
                 }
-
-                playerGameObject.transform.position = newPosition.position;
-                playerGameObject.transform.rotation = newPosition.rotation;
-
-                if (playerController != null)
-                {
-                    playerController.enabled = true;
-                }
+                StartCoroutine(TeleportWithEffects(newPosition.position, newPosition.rotation));
             }
             else
             {
@@ -97,29 +51,90 @@ public class PositionManager : MonoBehaviour
         }
     }
 
-    void Update()
+    private IEnumerator TeleportWithEffects(Vector3 newPosition, Quaternion newRotation)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        var playerController = playerGameObject.GetComponent<OVRPlayerController>();
+        if (playerController != null)
         {
-            TeleportRandomPosition();
+            playerController.enabled = false;
+            Debug.Log("Player controller disabled.");
         }
-    }
 
-    void TeleportRandomPosition()
-    {
-        if (playerGameObject != null)
+        if (transitioningBetweenChapters)
         {
-            var playerController = playerGameObject.GetComponent<OVRPlayerController>();
-            if (playerController != null)
+            if (teleportEffectPrefab != null)
             {
-                playerController.enabled = false;
+                GameObject teleportEffectInstance = Instantiate(teleportEffectPrefab, teleportEffectParent.transform.position, Quaternion.identity, teleportEffectParent);
+                ParticleSystem[] teleportEffects = teleportEffectInstance.GetComponentsInChildren<ParticleSystem>();
+                if (teleportEffects.Length > 0)
+                {
+                    Debug.Log("Playing teleport effects.");
+                    foreach (ParticleSystem ps in teleportEffects)
+                    {
+                        ps.Play();
+                    }
+                    yield return new WaitForSeconds(4f); 
+                    Debug.Log("Teleport effects finished.");
+                    Destroy(teleportEffectInstance);
+                }
+                else
+                {
+                    Debug.LogError("Teleport effect ParticleSystem components not found.");
+                }
+            }
+            else
+            {
+                Debug.LogError("Teleport effect prefab is not assigned.");
             }
 
-            playerGameObject.transform.position = new Vector3(Random.Range(-5, 5), playerGameObject.transform.position.y, Random.Range(-5, 5));
+            playerGameObject.transform.position = newPosition;
+            playerGameObject.transform.rotation = newRotation;
+            Debug.Log($"Player teleported to {newPosition}.");
+
+            if (spawnEffectPrefab != null)
+            {
+                GameObject spawnEffectInstance = Instantiate(spawnEffectPrefab, teleportEffectParent.transform.position, Quaternion.identity, spawnEffectParent);
+                ParticleSystem[] spawnEffects = spawnEffectInstance.GetComponentsInChildren<ParticleSystem>();
+                if (spawnEffects.Length > 0)
+                {
+                    Debug.Log("Playing spawn effects.");
+                    foreach (ParticleSystem ps in spawnEffects)
+                    {
+                        ps.Play();
+                    }
+                    yield return new WaitForSeconds(spawnEffects[0].main.duration);
+                    Debug.Log("Spawn effects finished.");
+                    Destroy(spawnEffectInstance);
+                }
+                else
+                {
+                    Debug.LogError("Spawn effect ParticleSystem components not found.");
+                }
+            }
+            else
+            {
+                Debug.LogError("Spawn effect prefab is not assigned.");
+            }
 
             if (playerController != null)
             {
                 playerController.enabled = true;
+                Debug.Log("Player controller enabled.");
+            }
+
+            transitioningBetweenChapters = false;
+        }
+        else
+        {
+            // If not transitioning between chapters, simply teleport the player
+            playerGameObject.transform.position = newPosition;
+            playerGameObject.transform.rotation = newRotation;
+            Debug.Log($"Player teleported to {newPosition}.");
+
+            if (playerController != null)
+            {
+                playerController.enabled = true;
+                Debug.Log("Player controller enabled.");
             }
         }
     }
