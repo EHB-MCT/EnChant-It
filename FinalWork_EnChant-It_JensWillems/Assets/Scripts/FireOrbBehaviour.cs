@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+
 
 public class FireOrbBehaviour : MonoBehaviour
 {
@@ -7,6 +9,15 @@ public class FireOrbBehaviour : MonoBehaviour
     [Header("Settings")]
     public float Speed = 5;
     public int DamageAmount = 10;
+    public AudioSource AudioSourceImpact;
+    public GameObject ParentGameObject;
+    public AudioSource AudioSourceShoot;
+    public ParticleSystem ParticleSystem;
+
+    public void Awake()
+    {
+        ParticleSystem = GetComponent<ParticleSystem>();
+    }
 
     private void Start()
     {
@@ -30,13 +41,37 @@ public class FireOrbBehaviour : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            EnemyInteraction enemyHealth = other.GetComponent<EnemyInteraction>();
-            if (enemyHealth != null)
+            AudioSourceImpact.Play();
+            AudioSourceShoot.Stop();
+            ParticleSystem.Stop();
+
+            if (ParentGameObject != null)
             {
-                enemyHealth.TakeDamage(DamageAmount);
+                ParticleSystem[] particleSystems = ParentGameObject.GetComponentsInChildren<ParticleSystem>();
+
+                foreach (ParticleSystem ps in particleSystems)
+                {
+                    ps.Stop();
+                }
+            }
+            else
+            {
+                Debug.LogError("Parent GameObject is not assigned.");
             }
 
-            Destroy(gameObject);
+            StartCoroutine(DealDamageAfterParticlesStop(other));
+        }
+    }
+
+    private IEnumerator DealDamageAfterParticlesStop(Collider enemy)
+    {
+        yield return null;
+
+        EnemyInteraction enemyHealth = enemy.GetComponent<EnemyInteraction>();
+        if (enemyHealth != null)
+        {
+            enemyHealth.TakeDamage(DamageAmount);
         }
     }
 }
+
