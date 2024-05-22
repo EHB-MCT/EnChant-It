@@ -7,13 +7,16 @@ public class PositionManager : MonoBehaviour
     [Header("References")]
     public List<Transform> chapter1Positions = new List<Transform>();
     public List<Transform> chapter2Positions = new List<Transform>();
+    public List<Transform> chapter3Positions = new List<Transform>();
     public GameObject playerGameObject;
-    public GameObject teleportEffectPrefab; 
-    public GameObject spawnEffectPrefab;   
-    public Transform teleportEffectParent;  
-    public Transform spawnEffectParent;     
+    public GameObject teleportEffectPrefab;
+    public GameObject spawnEffectPrefab;
+    public Transform teleportEffectParent;
+    public Transform spawnEffectParent;
 
-    private bool transitioningBetweenChapters = false;
+    public bool transitioningBetweenChapters = false;
+
+    public event System.Action OnSpawnEffectsCompleted;
 
     public void TeleportToChapter(ChapterController.Chapter chapter)
     {
@@ -26,6 +29,9 @@ public class PositionManager : MonoBehaviour
                 break;
             case ChapterController.Chapter.Chapter2:
                 positions = chapter2Positions;
+                break;
+            case ChapterController.Chapter.Chapter3:
+                positions = chapter3Positions;
                 break;
         }
 
@@ -73,7 +79,7 @@ public class PositionManager : MonoBehaviour
                     {
                         ps.Play();
                     }
-                    yield return new WaitForSeconds(4f); 
+                    yield return new WaitForSeconds(4f);
                     Debug.Log("Teleport effects finished.");
                     Destroy(teleportEffectInstance);
                 }
@@ -137,5 +143,8 @@ public class PositionManager : MonoBehaviour
                 Debug.Log("Player controller enabled.");
             }
         }
+
+        // Trigger the event when done
+        OnSpawnEffectsCompleted?.Invoke();
     }
 }

@@ -1,14 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class TheVoice : MonoBehaviour
+public class Chapter1Voice : MonoBehaviour
 {
     [Header("References")]
     public Menu Menu;
     public VoiceAnswers VoiceAnswers;
     public PositionManager PositionManager;
-    public ChapterController chapterController; 
+    public ChapterController chapterController;
 
+    [Header("Audio clips")]
     public AudioClip[] audioClips;
 
     private AudioSource audioSource;
@@ -34,11 +35,11 @@ public class TheVoice : MonoBehaviour
 
             yield return new WaitForSeconds(audioClips[currentClipIndex].length);
 
-            if (currentClipIndex == 2 && !Menu.OpenMenuFirstTime)
+            if (currentClipIndex == 1 && !Menu.OpenMenuFirstTime)
             {
                 yield return new WaitUntil(() => Menu.OpenMenuFirstTime);
             }
-            if (currentClipIndex == 4 && !VoiceAnswers.Answer)
+            if (currentClipIndex == 3 && !VoiceAnswers.Answer)
             {
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
             }

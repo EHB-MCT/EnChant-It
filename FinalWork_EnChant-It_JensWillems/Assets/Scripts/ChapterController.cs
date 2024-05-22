@@ -1,16 +1,20 @@
 using UnityEngine;
+using System;
 
 public class ChapterController : MonoBehaviour
 {
     public enum Chapter
     {
         Chapter1,
-        Chapter2
+        Chapter2,
+        Chapter3
     }
 
     public Chapter currentChapter = Chapter.Chapter1;
 
     public PositionManager positionManager;
+
+    public event Action<Chapter> OnChapterChanged;
 
     public void ChangeChapter(Chapter newChapter)
     {
@@ -19,7 +23,8 @@ public class ChapterController : MonoBehaviour
 
         positionManager.TeleportToChapter(currentChapter);
 
-        // Debug player position after changing chapters
+        OnChapterChanged?.Invoke(currentChapter);
+
         if (positionManager.playerGameObject != null)
         {
             Vector3 playerPosition = positionManager.playerGameObject.transform.position;
