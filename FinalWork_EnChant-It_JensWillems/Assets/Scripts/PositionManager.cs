@@ -44,7 +44,7 @@ public class PositionManager : MonoBehaviour
                 {
                     transitioningBetweenChapters = true;
                 }
-                StartCoroutine(TeleportWithEffects(newPosition.position, newPosition.rotation));
+                StartCoroutine(TeleportWithEffects(newPosition.position, newPosition.rotation, chapter));
             }
             else
             {
@@ -57,7 +57,7 @@ public class PositionManager : MonoBehaviour
         }
     }
 
-    private IEnumerator TeleportWithEffects(Vector3 newPosition, Quaternion newRotation)
+    private IEnumerator TeleportWithEffects(Vector3 newPosition, Quaternion newRotation, ChapterController.Chapter chapter)
     {
         var playerController = playerGameObject.GetComponent<OVRPlayerController>();
         if (playerController != null)
@@ -68,58 +68,64 @@ public class PositionManager : MonoBehaviour
 
         if (transitioningBetweenChapters)
         {
-            if (teleportEffectPrefab != null)
+            if (chapter != ChapterController.Chapter.Chapter1)
             {
-                GameObject teleportEffectInstance = Instantiate(teleportEffectPrefab, teleportEffectParent.transform.position, Quaternion.identity, teleportEffectParent);
-                ParticleSystem[] teleportEffects = teleportEffectInstance.GetComponentsInChildren<ParticleSystem>();
-                if (teleportEffects.Length > 0)
+                if (teleportEffectPrefab != null)
                 {
-                    Debug.Log("Playing teleport effects.");
-                    foreach (ParticleSystem ps in teleportEffects)
+                    GameObject teleportEffectInstance = Instantiate(teleportEffectPrefab, teleportEffectParent.transform.position, Quaternion.identity, teleportEffectParent);
+                    ParticleSystem[] teleportEffects = teleportEffectInstance.GetComponentsInChildren<ParticleSystem>();
+                    if (teleportEffects.Length > 0)
                     {
-                        ps.Play();
+                        Debug.Log("Playing teleport effects.");
+                        foreach (ParticleSystem ps in teleportEffects)
+                        {
+                            ps.Play();
+                        }
+                        yield return new WaitForSeconds(4f);
+                        Debug.Log("Teleport effects finished.");
+                        Destroy(teleportEffectInstance);
                     }
-                    yield return new WaitForSeconds(4f);
-                    Debug.Log("Teleport effects finished.");
-                    Destroy(teleportEffectInstance);
+                    else
+                    {
+                        Debug.LogError("Teleport effect ParticleSystem components not found.");
+                    }
                 }
                 else
                 {
-                    Debug.LogError("Teleport effect ParticleSystem components not found.");
+                    Debug.LogError("Teleport effect prefab is not assigned.");
                 }
-            }
-            else
-            {
-                Debug.LogError("Teleport effect prefab is not assigned.");
             }
 
             playerGameObject.transform.position = newPosition;
             playerGameObject.transform.rotation = newRotation;
             Debug.Log($"Player teleported to {newPosition}.");
 
-            if (spawnEffectPrefab != null)
+            if (chapter != ChapterController.Chapter.Chapter1)
             {
-                GameObject spawnEffectInstance = Instantiate(spawnEffectPrefab, teleportEffectParent.transform.position, Quaternion.identity, spawnEffectParent);
-                ParticleSystem[] spawnEffects = spawnEffectInstance.GetComponentsInChildren<ParticleSystem>();
-                if (spawnEffects.Length > 0)
+                if (spawnEffectPrefab != null)
                 {
-                    Debug.Log("Playing spawn effects.");
-                    foreach (ParticleSystem ps in spawnEffects)
+                    GameObject spawnEffectInstance = Instantiate(spawnEffectPrefab, teleportEffectParent.transform.position, Quaternion.identity, spawnEffectParent);
+                    ParticleSystem[] spawnEffects = spawnEffectInstance.GetComponentsInChildren<ParticleSystem>();
+                    if (spawnEffects.Length > 0)
                     {
-                        ps.Play();
+                        Debug.Log("Playing spawn effects.");
+                        foreach (ParticleSystem ps in spawnEffects)
+                        {
+                            ps.Play();
+                        }
+                        yield return new WaitForSeconds(spawnEffects[0].main.duration);
+                        Debug.Log("Spawn effects finished.");
+                        Destroy(spawnEffectInstance);
                     }
-                    yield return new WaitForSeconds(spawnEffects[0].main.duration);
-                    Debug.Log("Spawn effects finished.");
-                    Destroy(spawnEffectInstance);
+                    else
+                    {
+                        Debug.LogError("Spawn effect ParticleSystem components not found.");
+                    }
                 }
                 else
                 {
-                    Debug.LogError("Spawn effect ParticleSystem components not found.");
+                    Debug.LogError("Spawn effect prefab is not assigned.");
                 }
-            }
-            else
-            {
-                Debug.LogError("Spawn effect prefab is not assigned.");
             }
 
             if (playerController != null)

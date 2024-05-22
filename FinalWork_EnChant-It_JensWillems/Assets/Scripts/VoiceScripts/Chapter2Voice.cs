@@ -69,9 +69,9 @@ public class Chapter2Voice : MonoBehaviour
 
         if (chapterController.currentChapter == ChapterController.Chapter.Chapter2)
         {
-            ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)chapterController.currentChapter + 1);
+            //ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)chapterController.currentChapter + 1);
 
-            chapterController.ChangeChapter(nextChapter);
+           //chapterController.ChangeChapter(nextChapter);
         }
         else
         {

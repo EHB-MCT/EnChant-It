@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class EnemyInteraction : MonoBehaviour
 {
@@ -23,6 +22,18 @@ public class EnemyInteraction : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject);
+        MeshRenderer mr = gameObject.GetComponent<MeshRenderer>();
+        BoxCollider bc = gameObject.GetComponent<BoxCollider>();
+        mr.enabled = false;
+        bc.enabled = false;
+        StartCoroutine(Respawn(mr, bc));
+    }
+
+    IEnumerator Respawn(MeshRenderer mr, BoxCollider bc)
+    {
+        yield return new WaitForSeconds(5f);
+        currentHealth = MaxHealth;
+        mr.enabled = true;
+        bc.enabled = true;
     }
 }
