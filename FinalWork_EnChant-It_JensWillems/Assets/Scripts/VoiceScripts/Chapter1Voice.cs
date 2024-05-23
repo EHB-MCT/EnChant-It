@@ -14,16 +14,25 @@ public class Chapter1Voice : MonoBehaviour
 
     private AudioSource audioSource;
     private int currentClipIndex = 0;
+    private bool menuOpenedFirstTime = false;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        // Subscribe to the OnMenuOpenedFirstTime event
+        Menu.OnMenuOpenedFirstTime += HandleMenuOpenedFirstTime;
 
         // Only start playing dialogue if the player is in chapter 1
         if (chapterController.currentChapter == ChapterController.Chapter.Chapter1)
         {
             StartCoroutine(PlayDialogue());
         }
+    }
+
+    private void HandleMenuOpenedFirstTime()
+    {
+        menuOpenedFirstTime = true;
     }
 
     private IEnumerator PlayDialogue()
@@ -35,9 +44,10 @@ public class Chapter1Voice : MonoBehaviour
 
             yield return new WaitForSeconds(audioClips[currentClipIndex].length);
 
-            if (currentClipIndex == 1 && !Menu.OpenMenuFirstTime)
+            if (currentClipIndex == 1 && !menuOpenedFirstTime)
             {
-                yield return new WaitUntil(() => Menu.OpenMenuFirstTime);
+                Menu.EnableFirstTimeMenuOpening();
+                yield return new WaitUntil(() => menuOpenedFirstTime);
             }
             if (currentClipIndex == 3 && !VoiceAnswers.Answer)
             {
@@ -52,13 +62,21 @@ public class Chapter1Voice : MonoBehaviour
             if (chapterController.currentChapter == ChapterController.Chapter.Chapter1)
             {
                 ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)chapterController.currentChapter + 1);
-
                 chapterController.ChangeChapter(nextChapter);
             }
             else
             {
                 Debug.LogWarning("No next chapter available.");
             }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe from the event to avoid memory leaks
+        if (Menu != null)
+        {
+            Menu.OnMenuOpenedFirstTime -= HandleMenuOpenedFirstTime;
         }
     }
 }

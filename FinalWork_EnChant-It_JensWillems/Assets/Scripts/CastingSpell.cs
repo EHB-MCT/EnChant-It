@@ -6,6 +6,7 @@ public class CastingSpell : MonoBehaviour
     public GameObject FireBall;
     public GameObject spellSpawnPoint;
     public Camera MainCamera;
+    public bool CastFireSpell = false;
 
 
     [Header("Settings")]
@@ -33,6 +34,7 @@ public class CastingSpell : MonoBehaviour
 
             if (spellName.Equals("fire", StringComparison.OrdinalIgnoreCase))
             {
+                CastFireSpell = true;
                 Debug.Log("found spell");
 
                 Vector3 spawnPosition = spellSpawnPoint.transform.position;

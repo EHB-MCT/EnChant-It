@@ -8,7 +8,9 @@ public class Menu : MonoBehaviour
     public GameObject Spellbook;
     public Book Book;
     public AutoFlip AutoFlip;
-    public bool OpenMenuFirstTime = false;
+    private bool isMenuOpenedForFirstTime = false;
+
+    public event Action OnMenuOpenedFirstTime;
 
     private void Start()
     {
@@ -37,7 +39,12 @@ public class Menu : MonoBehaviour
             if (menuCommandName.Equals("book", StringComparison.OrdinalIgnoreCase))
             {
                 Spellbook.SetActive(true);
-            OpenMenuFirstTime = true;
+
+                if (isMenuOpenedForFirstTime)
+                {
+                    OnMenuOpenedFirstTime?.Invoke();
+                }
+
                 Debug.Log("opening book");
 
             } else if (menuCommandName.Equals("Next", StringComparison.OrdinalIgnoreCase))
@@ -56,5 +63,9 @@ public class Menu : MonoBehaviour
             }
 
         }
+    }
+    public void EnableFirstTimeMenuOpening()
+    {
+        isMenuOpenedForFirstTime = true;
     }
 }

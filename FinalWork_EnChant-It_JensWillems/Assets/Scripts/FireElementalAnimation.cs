@@ -9,6 +9,8 @@ public class FireElementalAnimation : MonoBehaviour
     public float jumpHeight = 3f;
     public float jumpDuration = 1.5f;
 
+    public Transform Player;
+
     private float originalY;
     private float bobSpeed;
     private float bobHeight;
@@ -24,6 +26,10 @@ public class FireElementalAnimation : MonoBehaviour
 
     private void Update()
     {
+        if(Player != null)
+        {
+            transform.LookAt(Player);
+        }
         if (!isJumping)
         {
             float yOffset = Mathf.Sin(Time.time * bobSpeed) * bobHeight;

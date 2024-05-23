@@ -28,7 +28,7 @@ public class ChapterController : MonoBehaviour
         if (positionManager.playerGameObject != null)
         {
             Vector3 playerPosition = positionManager.playerGameObject.transform.position;
-            Debug.Log("Player position after changing chapter: " + playerPosition);
+            //Debug.Log("Player position after changing chapter: " + playerPosition);
         }
         else
         {
