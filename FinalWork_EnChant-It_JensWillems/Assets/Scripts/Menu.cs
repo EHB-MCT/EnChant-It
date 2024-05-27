@@ -51,19 +51,29 @@ public class Menu : MonoBehaviour
 
             } else if (menuCommandName.Equals("Next", StringComparison.OrdinalIgnoreCase))
             {
-                AutoFlip.FlipRightPage();
+                //AutoFlip.FlipRightPage();
 
             }
             else if (menuCommandName.Equals("Previous", StringComparison.OrdinalIgnoreCase))
             {
-                AutoFlip.FlipLeftPage();
+                //AutoFlip.FlipLeftPage();
 
             }
-            else if (menuCommandName.Equals("close", StringComparison.OrdinalIgnoreCase))
+            else if (menuCommandName.Equals("close", StringComparison.OrdinalIgnoreCase) && Book.enabled)
             {
                 Spellbook.SetActive(false);
                 WorldSpaceCanvasController.moveWithCamera = true;
             }
+            else if (menuCommandName.Equals("Quit", StringComparison.OrdinalIgnoreCase) && Book.enabled)
+            {
+                Debug.Log("this is done");
+               Application.Quit();
+
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            }
+
 
         }
     }

@@ -24224,7 +24224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93707568a41f7fd46ab02925e6f94c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
+  Speed: 10
   DamageAmount: 10
   AudioSourceImpact: {fileID: 3354322739658776814}
   ParentGameObject: {fileID: 7744098581499044749}
@@ -24242,7 +24242,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4d18f5e85800f98478525ef5dfd5c561, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0

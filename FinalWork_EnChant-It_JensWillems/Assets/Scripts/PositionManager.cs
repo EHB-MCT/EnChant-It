@@ -63,7 +63,7 @@ public class PositionManager : MonoBehaviour
         if (playerController != null)
         {
             playerController.enabled = false;
-            Debug.Log("Player controller disabled.");
+           // Debug.Log("Player controller disabled.");
         }
 
         if (transitioningBetweenChapters)
@@ -76,13 +76,13 @@ public class PositionManager : MonoBehaviour
                     ParticleSystem[] teleportEffects = teleportEffectInstance.GetComponentsInChildren<ParticleSystem>();
                     if (teleportEffects.Length > 0)
                     {
-                        Debug.Log("Playing teleport effects.");
+                        //Debug.Log("Playing teleport effects.");
                         foreach (ParticleSystem ps in teleportEffects)
                         {
                             ps.Play();
                         }
                         yield return new WaitForSeconds(4f);
-                        Debug.Log("Teleport effects finished.");
+                        //Debug.Log("Teleport effects finished.");
                         Destroy(teleportEffectInstance);
                     }
                     else
@@ -131,7 +131,7 @@ public class PositionManager : MonoBehaviour
             if (playerController != null)
             {
                 playerController.enabled = true;
-                Debug.Log("Player controller enabled.");
+                //Debug.Log("Player controller enabled.");
             }
 
             transitioningBetweenChapters = false;
@@ -141,12 +141,12 @@ public class PositionManager : MonoBehaviour
             // If not transitioning between chapters, simply teleport the player
             playerGameObject.transform.position = newPosition;
             playerGameObject.transform.rotation = newRotation;
-            Debug.Log($"Player teleported to {newPosition}.");
+            //Debug.Log($"Player teleported to {newPosition}.");
 
             if (playerController != null)
             {
                 playerController.enabled = true;
-                Debug.Log("Player controller enabled.");
+               // Debug.Log("Player controller enabled.");
             }
         }
 

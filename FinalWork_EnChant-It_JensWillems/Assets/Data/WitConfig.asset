@@ -20,17 +20,13 @@ MonoBehaviour:
     isPrivate: 0
     createdAt: 2024-01-28T02:48:11-0800
     trainingStatus: 1
-    lastTrainDuration: 90
-    lastTrainedAt: 2024-05-13T05:31:42-0700
-    nextTrainAt: 2024-05-13T05:30:12-0700
+    lastTrainDuration: 78
+    lastTrainedAt: 2024-05-25T11:14:19-0700
+    nextTrainAt: 2024-05-25T11:13:01-0700
     intents:
     - id: 421732653615164
       name: cast_spell
       entities:
-      - name: color:color
-        id: 1315995962424253
-      - name: shape:shape
-        id: 346290738219226
       - name: spell:spell
         id: 2135672603455542
     - id: 1442295973345056
@@ -70,6 +66,8 @@ MonoBehaviour:
         synonyms:
         - Close
         - close book
+        - close spellbook
+        - resume
       - keyword: Next
         synonyms:
         - Next
@@ -78,45 +76,30 @@ MonoBehaviour:
         synonyms:
         - Previous
         - left
+      - keyword: Quit
+        synonyms:
+        - break
+        - discontinue
+        - end
+        - leave
+        - quit
+        - stop
       - keyword: book
         synonyms:
         - book
+        - hud
+        - manuscript
         - menu
         - open book
+        - pause
+        - quest
+        - screen
         - setting
         - settings
-      - keyword: menu
-        synonyms: []
+        - spellbook
       - keyword: page
         synonyms:
         - page
-      - keyword: spellbook
-        synonyms:
-        - spellbook
-    - name: color
-      id: 1063295398266512
-      lookups:
-      - free-text
-      - keywords
-      roles:
-      - name: color
-        id: 1315995962424253
-      keywords:
-      - keyword: red
-        synonyms:
-        - red
-    - name: shape
-      id: 1068388314431724
-      lookups:
-      - free-text
-      - keywords
-      roles:
-      - name: shape
-        id: 346290738219226
-      keywords:
-      - keyword: cube
-        synonyms:
-        - cube
     - name: spell
       id: 191559537353460
       lookups:
@@ -129,8 +112,11 @@ MonoBehaviour:
       - keyword: fire
         synonyms:
         - fire
-      - keyword: hell
+      - keyword: heal
         synonyms:
+        - heal
+        - healing
+        - heel
         - hell
     traits: []
     versionTags: []

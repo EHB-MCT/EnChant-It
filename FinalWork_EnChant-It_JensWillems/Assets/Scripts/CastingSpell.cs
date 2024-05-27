@@ -4,10 +4,13 @@ public class CastingSpell : MonoBehaviour
 {
     [Header("References")]
     public GameObject FireBall;
+    public GameObject HealSpell;
     public GameObject spellSpawnPoint;
     public Camera MainCamera;
+    public Transform teleportEffectParent;
+    public Transform spawnEffectParent;
     public bool CastFireSpell = false;
-
+    
 
     [Header("Settings")]
     public float DistanceFromCamera = 5f;
@@ -41,6 +44,18 @@ public class CastingSpell : MonoBehaviour
                 Quaternion spawnRotation = spellSpawnPoint.transform.rotation;
 
                 Instantiate(FireBall, spawnPosition, Quaternion.identity);
+            }
+
+
+             if (spellName.Equals("heal", StringComparison.OrdinalIgnoreCase))
+            {
+                CastFireSpell = true;
+                Debug.Log("found spell");
+
+                Vector3 spawnPosition = spellSpawnPoint.transform.position;
+                Quaternion spawnRotation = spellSpawnPoint.transform.rotation;
+                Debug.Log("do healing");
+                Instantiate(HealSpell, teleportEffectParent.transform.position, Quaternion.identity, spawnEffectParent);
             }
         }
     }

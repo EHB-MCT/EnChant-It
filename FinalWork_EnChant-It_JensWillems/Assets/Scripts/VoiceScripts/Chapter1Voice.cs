@@ -52,6 +52,7 @@ public class Chapter1Voice : MonoBehaviour
             if (currentClipIndex == 3 && !VoiceAnswers.Answer)
             {
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
+                VoiceAnswers.Answer = false;
             }
 
             currentClipIndex++;

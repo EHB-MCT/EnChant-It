@@ -68,11 +68,16 @@ public class Chapter2Voice : MonoBehaviour
 
             if (currentClipIndex == 0 && !VoiceAnswers.Answer)
             {
-                yield return new WaitUntil(() => VoiceAnswers.Answer);
+                //yield return new WaitUntil(() => VoiceAnswers.Answer);
             }
             if (currentClipIndex == 2 && !CastingSpell.CastFireSpell)
             {
                 yield return new WaitUntil(() => CastingSpell.CastFireSpell);
+            }
+            if (currentClipIndex == 4 && !VoiceAnswers.Answer)
+            {
+                yield return new WaitUntil(() => VoiceAnswers.Answer);
+                VoiceAnswers.Answer = false;
             }
             currentClipIndex++;
         }
@@ -80,9 +85,9 @@ public class Chapter2Voice : MonoBehaviour
        
         if (chapterController.currentChapter == ChapterController.Chapter.Chapter2)
         {
-            //ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)chapterController.currentChapter + 1);
+            ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)chapterController.currentChapter + 1);
 
-           //chapterController.ChangeChapter(nextChapter);
+           chapterController.ChangeChapter(nextChapter);
         }
         else
         {
