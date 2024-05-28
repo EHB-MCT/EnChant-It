@@ -10,70 +10,92 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae5a46bda3295124c99b0e6537ac7252, type: 3}
-  m_Name: WitConfig
+  m_Name: WitConfig_EnchantIt
   m_EditorClassIdentifier: 
-  _clientAccessToken: TSBHDG633OBKPA7NSB3DF2BM4O64X6TP
+  _clientAccessToken: FVPGIZS4IPN3WKCJWVEEGME3XKZWAFVX
   _appInfo:
-    name: enchant_it_finalwork
-    id: 463614296164425
+    name: Enchant-It-JensWillems
+    id: 411138711256147
     lang: en
     isPrivate: 0
-    createdAt: 2024-05-28T00:40:57-0700
+    createdAt: 2024-01-28T02:48:11-0800
     trainingStatus: 1
-    lastTrainDuration: 68
-    lastTrainedAt: 2024-05-28T02:38:31-0700
-    nextTrainAt: 2024-05-28T02:37:23-0700
+    lastTrainDuration: 62
+    lastTrainedAt: 2024-05-28T00:32:12-0700
+    nextTrainAt: 2024-05-28T00:31:10-0700
     intents:
-    - id: 1407244676600472
-      name: cast_Answer
-      entities:
-      - name: Answer:Answer
-        id: 1549043715826302
-    - id: 387765536946491
-      name: cast_BookMenu
-      entities:
-      - name: Book:Book
-        id: 853838803281511
-    - id: 1143109586895071
-      name: cast_MainMenu
+    - id: 1116440249659335
+      name: MainMenu
       entities:
       - name: Option:Option
-        id: 1439735193333932
-    - id: 1122046712347690
+        id: 1671137760362870
+    - id: 421732653615164
       name: cast_spell
       entities:
-      - name: Spell:Spell
-        id: 772420311693654
+      - name: spell:spell
+        id: 2135672603455542
+    - id: 1442295973345056
+      name: menu
+      entities:
+      - name: book:book
+        id: 1423072381658529
+    - id: 429720803146855
+      name: say_answer
+      entities:
+      - name: Answer:Answer
+        id: 1528447791348202
     entities:
     - name: Answer
-      id: 1174278040412671
+      id: 306528635853278
       lookups:
       - free-text
       - keywords
       roles:
       - name: Answer
-        id: 1549043715826302
+        id: 1528447791348202
       keywords:
       - keyword: Yes
         synonyms:
+        - i am
         - yes
-    - name: Book
-      id: 627594929862645
+    - name: Option
+      id: 1363934874285122
       lookups:
       - free-text
       - keywords
       roles:
-      - name: Book
-        id: 853838803281511
+      - name: Option
+        id: 1671137760362870
       keywords:
-      - keyword: Book
+      - keyword: Quit
         synonyms:
-        - book
-        - hud
-        - menu
-        - open book
-        - settings
-        - spellbook
+        - quit
+      - keyword: Start
+        synonyms:
+        - start
+    - name: book
+      id: 789189009825397
+      lookups:
+      - free-text
+      - keywords
+      roles:
+      - name: book
+        id: 1423072381658529
+      keywords:
+      - keyword: Close
+        synonyms:
+        - Close
+        - close book
+        - close spellbook
+        - resume
+      - keyword: Next
+        synonyms:
+        - Next
+        - right
+      - keyword: Previous
+        synonyms:
+        - Previous
+        - left
       - keyword: Quit
         synonyms:
         - break
@@ -82,46 +104,48 @@ MonoBehaviour:
         - leave
         - quit
         - stop
-      - keyword: close
+      - keyword: book
         synonyms:
-        - close
-        - close book
-        - resume
-    - name: Option
-      id: 1914318665665153
+        - book
+        - hud
+        - manuscript
+        - menu
+        - open book
+        - pause
+        - quest
+        - screen
+        - setting
+        - settings
+        - spellbook
+      - keyword: page
+        synonyms:
+        - page
+    - name: spell
+      id: 191559537353460
       lookups:
       - free-text
       - keywords
       roles:
-      - name: Option
-        id: 1439735193333932
+      - name: spell
+        id: 2135672603455542
       keywords:
-      - keyword: Quit
+      - keyword: Firewall
         synonyms:
-        - quit
-      - keyword: Start
-        synonyms:
-        - start
-    - name: Spell
-      id: 1349174642719411
-      lookups:
-      - free-text
-      - keywords
-      roles:
-      - name: Spell
-        id: 772420311693654
-      keywords:
-      - keyword: Fire
+        - Firewall
+        - wall
+        - wall of fire
+      - keyword: fire
         synonyms:
         - fire
-      - keyword: Heal
+        - fireball
+        - firing
+        - hellfire
+      - keyword: heal
         synonyms:
         - heal
         - healing
         - heel
-      - keyword: Inferno
-        synonyms:
-        - inferno
+        - hell
     traits: []
     versionTags: []
     voices:
@@ -393,7 +417,7 @@ MonoBehaviour:
     composer:
       canvases: []
     characters: []
-  _configurationId: 7934405c-ec1f-46da-a949-931fca3dd642
+  _configurationId: 9a9970b3-4c62-4120-9e32-1bcfefd65f4f
   timeoutMS: 10000
   endpointConfiguration:
     _uriScheme: 
@@ -408,7 +432,7 @@ MonoBehaviour:
     _converse: 
   isDemoOnly: 0
   useConduit: 1
-  _manifestLocalPath: ConduitManifest-dc059520-cead-40f1-bbbd-31da83b2f883.json
+  _manifestLocalPath: ConduitManifest-cedb859b-1f41-4548-8a77-4f195f172732.json
   excludedAssemblies:
   - Oculus.Voice.Demo, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Meta.WitAi.Samples, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

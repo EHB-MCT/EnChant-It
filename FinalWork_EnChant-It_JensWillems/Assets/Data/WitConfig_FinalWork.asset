@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae5a46bda3295124c99b0e6537ac7252, type: 3}
-  m_Name: WitConfig
+  m_Name: WitConfig_FinalWork
   m_EditorClassIdentifier: 
   _clientAccessToken: TSBHDG633OBKPA7NSB3DF2BM4O64X6TP
   _appInfo:
@@ -393,7 +393,7 @@ MonoBehaviour:
     composer:
       canvases: []
     characters: []
-  _configurationId: 7934405c-ec1f-46da-a949-931fca3dd642
+  _configurationId: 6aa092a7-2bc9-4c2f-a0dd-a7712a0dfc39
   timeoutMS: 10000
   endpointConfiguration:
     _uriScheme: 
@@ -408,7 +408,7 @@ MonoBehaviour:
     _converse: 
   isDemoOnly: 0
   useConduit: 1
-  _manifestLocalPath: ConduitManifest-dc059520-cead-40f1-bbbd-31da83b2f883.json
+  _manifestLocalPath: ConduitManifest-b36f8b4d-6c64-486a-9087-eb6696feedc5.json
   excludedAssemblies:
   - Oculus.Voice.Demo, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Meta.WitAi.Samples, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

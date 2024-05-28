@@ -4,6 +4,7 @@ public class CastingSpell : MonoBehaviour
 {
     [Header("References")]
     public GameObject FireBall;
+    public GameObject FlameThrower;
     public GameObject HealSpell;
     public GameObject spellSpawnPoint;
     public Camera MainCamera;
@@ -35,19 +36,34 @@ public class CastingSpell : MonoBehaviour
         {
             string spellName = spellNames[0];
 
+
+            // Fire ball
             if (spellName.Equals("fire", StringComparison.OrdinalIgnoreCase))
             {
                 CastFireSpell = true;
                 Debug.Log("found spell");
 
                 Vector3 spawnPosition = spellSpawnPoint.transform.position;
-                Quaternion spawnRotation = spellSpawnPoint.transform.rotation;
 
                 Instantiate(FireBall, spawnPosition, Quaternion.identity);
             }
 
+            //flamethrower
+            if (spellName.Equals("Inferno", StringComparison.OrdinalIgnoreCase))
+            {
+                Debug.Log("found spell");
 
-             if (spellName.Equals("heal", StringComparison.OrdinalIgnoreCase))
+                Vector3 spawnPosition = spellSpawnPoint.transform.position;
+
+                Quaternion spawnRotation = spellSpawnPoint.transform.rotation;
+
+                GameObject flameThrowerInstance = Instantiate(FlameThrower, spawnPosition, spawnRotation);
+
+                flameThrowerInstance.transform.SetParent(spellSpawnPoint.transform);
+            }
+
+
+            if (spellName.Equals("heal", StringComparison.OrdinalIgnoreCase))
             {
                 CastFireSpell = true;
                 Debug.Log("found spell");

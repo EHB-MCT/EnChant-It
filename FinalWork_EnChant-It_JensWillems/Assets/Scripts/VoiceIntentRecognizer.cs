@@ -15,12 +15,12 @@ public class VoiceIntentRecognizer : MonoBehaviour
         switch (intentName)
         {
             case "cast_spell":
-                CastingSpell.UpdateSpell(commandResult.GetAllEntityValues("spell:spell"));
+                CastingSpell.UpdateSpell(commandResult.GetAllEntityValues("Spell:Spell"));
                 break;
-            case "menu":
-                Menu.UpdateMenu(commandResult.GetAllEntityValues("book:book"));
+            case "cast_BookMenu":
+                Menu.UpdateMenu(commandResult.GetAllEntityValues("Book:Book"));
                 break;
-            case "say_answer":
+            case "cast_Answer":
                 VoiceAnswers.UpdateAnswer(commandResult.GetAllEntityValues("Answer:Answer"));
                 break;
             default:

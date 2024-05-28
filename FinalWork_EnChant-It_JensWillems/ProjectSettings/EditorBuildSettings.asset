@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Enchant-It-MainMenu.unity
+    guid: 3b67ae6afb91dd942b0f3af78e3b1691
+  - enabled: 1
     path: Assets/Scenes/Enchant-It.unity
     guid: e00610c9929a91649a55c2f7d75fc7c1
   m_configObjects:
