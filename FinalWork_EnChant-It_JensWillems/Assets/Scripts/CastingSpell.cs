@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+
 public class CastingSpell : MonoBehaviour
 {
     [Header("References")]
@@ -10,11 +11,15 @@ public class CastingSpell : MonoBehaviour
     public Camera MainCamera;
     public Transform teleportEffectParent;
     public Transform spawnEffectParent;
+    public Player player; // Reference to the Player script
     public bool CastFireSpell = false;
-    
 
     [Header("Settings")]
     public float DistanceFromCamera = 5f;
+    public int fireManaCost = 20;
+    public int infernoManaCost = 50;
+    public int healManaCost = 30;
+
     public void UpdateSpell(string[] spells)
     {
         Debug.Log("Update spells being done!");
@@ -36,36 +41,34 @@ public class CastingSpell : MonoBehaviour
         {
             string spellName = spellNames[0];
 
-
             // Fire ball
-            if (spellName.Equals("fire", StringComparison.OrdinalIgnoreCase))
+            if (spellName.Equals("fire", StringComparison.OrdinalIgnoreCase) && player.currentMana >= fireManaCost)
             {
                 CastFireSpell = true;
+                player.UseMana(fireManaCost);
                 Debug.Log("found spell");
 
                 Vector3 spawnPosition = spellSpawnPoint.transform.position;
-
                 Instantiate(FireBall, spawnPosition, Quaternion.identity);
             }
 
-            //flamethrower
-            if (spellName.Equals("Inferno", StringComparison.OrdinalIgnoreCase))
+            // Flamethrower
+            if (spellName.Equals("Inferno", StringComparison.OrdinalIgnoreCase) && player.currentMana >= infernoManaCost)
             {
+                player.UseMana(infernoManaCost);
                 Debug.Log("found spell");
 
                 Vector3 spawnPosition = spellSpawnPoint.transform.position;
-
                 Quaternion spawnRotation = spellSpawnPoint.transform.rotation;
 
                 GameObject flameThrowerInstance = Instantiate(FlameThrower, spawnPosition, spawnRotation);
-
                 flameThrowerInstance.transform.SetParent(spellSpawnPoint.transform);
             }
 
-
-            if (spellName.Equals("heal", StringComparison.OrdinalIgnoreCase))
+            // Heal
+            if (spellName.Equals("heal", StringComparison.OrdinalIgnoreCase) && player.currentMana >= healManaCost)
             {
-                CastFireSpell = true;
+                player.UseMana(healManaCost);
                 Debug.Log("found spell");
 
                 Vector3 spawnPosition = spellSpawnPoint.transform.position;
@@ -75,8 +78,4 @@ public class CastingSpell : MonoBehaviour
             }
         }
     }
-
-
-
-
 }
