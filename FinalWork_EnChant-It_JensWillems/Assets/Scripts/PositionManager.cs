@@ -5,14 +5,15 @@ using System.Collections;
 public class PositionManager : MonoBehaviour
 {
     [Header("References")]
-    public List<Transform> chapter1Positions = new List<Transform>();
-    public List<Transform> chapter2Positions = new List<Transform>();
-    public List<Transform> chapter3Positions = new List<Transform>();
-    public GameObject playerGameObject;
-    public GameObject teleportEffectPrefab;
-    public GameObject spawnEffectPrefab;
-    public Transform teleportEffectParent;
-    public Transform spawnEffectParent;
+    public List<Transform> Chapter1Positions = new List<Transform>();
+    public List<Transform> Chapter2Positions = new List<Transform>();
+    public List<Transform> Chapter3Positions = new List<Transform>();
+    public List<Transform> Chapter4Positions = new List<Transform>();
+    public GameObject PlayerGameObject;
+    public GameObject TeleportEffectPrefab;
+    public GameObject SpawnEffectPrefab;
+    public Transform TeleportEffectParent;
+    public Transform SpawnEffectParent;
 
     public bool transitioningBetweenChapters = false;
 
@@ -25,20 +26,23 @@ public class PositionManager : MonoBehaviour
         switch (chapter)
         {
             case ChapterController.Chapter.Chapter1:
-                positions = chapter1Positions;
+                positions = Chapter1Positions;
                 break;
             case ChapterController.Chapter.Chapter2:
-                positions = chapter2Positions;
+                positions = Chapter2Positions;
                 break;
             case ChapterController.Chapter.Chapter3:
-                positions = chapter3Positions;
+                positions = Chapter3Positions;
+                break;
+            case ChapterController.Chapter.Chapter4:
+                positions = Chapter4Positions;
                 break;
         }
 
         if (positions != null && positions.Count > 0)
         {
             Transform newPosition = positions[0];
-            if (playerGameObject != null)
+            if (PlayerGameObject != null)
             {
                 if (chapter != ChapterController.Chapter.Chapter1)
                 {
@@ -59,7 +63,7 @@ public class PositionManager : MonoBehaviour
 
     private IEnumerator TeleportWithEffects(Vector3 newPosition, Quaternion newRotation, ChapterController.Chapter chapter)
     {
-        var playerController = playerGameObject.GetComponent<OVRPlayerController>();
+        var playerController = PlayerGameObject.GetComponent<OVRPlayerController>();
         if (playerController != null)
         {
             playerController.enabled = false;
@@ -70,9 +74,9 @@ public class PositionManager : MonoBehaviour
         {
             if (chapter != ChapterController.Chapter.Chapter1)
             {
-                if (teleportEffectPrefab != null)
+                if (TeleportEffectPrefab != null)
                 {
-                    GameObject teleportEffectInstance = Instantiate(teleportEffectPrefab, teleportEffectParent.transform.position, Quaternion.identity, teleportEffectParent);
+                    GameObject teleportEffectInstance = Instantiate(TeleportEffectPrefab, TeleportEffectParent.transform.position, Quaternion.identity, TeleportEffectParent);
                     ParticleSystem[] teleportEffects = teleportEffectInstance.GetComponentsInChildren<ParticleSystem>();
                     if (teleportEffects.Length > 0)
                     {
@@ -96,15 +100,15 @@ public class PositionManager : MonoBehaviour
                 }
             }
 
-            playerGameObject.transform.position = newPosition;
-            playerGameObject.transform.rotation = newRotation;
+            PlayerGameObject.transform.position = newPosition;
+            PlayerGameObject.transform.rotation = newRotation;
             Debug.Log($"Player teleported to {newPosition}.");
 
             if (chapter != ChapterController.Chapter.Chapter1)
             {
-                if (spawnEffectPrefab != null)
+                if (SpawnEffectPrefab != null)
                 {
-                    GameObject spawnEffectInstance = Instantiate(spawnEffectPrefab, teleportEffectParent.transform.position, Quaternion.identity, spawnEffectParent);
+                    GameObject spawnEffectInstance = Instantiate(SpawnEffectPrefab, TeleportEffectParent.transform.position, Quaternion.identity, SpawnEffectParent);
                     ParticleSystem[] spawnEffects = spawnEffectInstance.GetComponentsInChildren<ParticleSystem>();
                     if (spawnEffects.Length > 0)
                     {
@@ -139,8 +143,8 @@ public class PositionManager : MonoBehaviour
         else
         {
             // If not transitioning between chapters, simply teleport the player
-            playerGameObject.transform.position = newPosition;
-            playerGameObject.transform.rotation = newRotation;
+            PlayerGameObject.transform.position = newPosition;
+            PlayerGameObject.transform.rotation = newRotation;
             //Debug.Log($"Player teleported to {newPosition}.");
 
             if (playerController != null)

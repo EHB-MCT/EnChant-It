@@ -6,18 +6,18 @@ using UnityEngine;
 public class CirclePlacement : MonoBehaviour
 {
     [Header("References")]
-    public GameObject[] pillars;
-    public GameObject[] braziers;
-    public GameObject target;
+    public GameObject[] Pillars;
+    public GameObject[] Braziers;
+    public GameObject Target;
 
     [Header("Settings")]
-    public float pillarRadius = 5.0f;
-    public float brazierRadius = 3.5f;
+    public float PillarRadius = 5.0f;
+    public float BrazierRadius = 3.5f;
 
     void OnValidate()
     {
-        ArrangePillars(pillars, pillarRadius);
-        ArrangeBraziers(braziers, brazierRadius);
+        ArrangePillars(Pillars, PillarRadius);
+        ArrangeBraziers(Braziers, BrazierRadius);
     }
 
     void ArrangePillars(GameObject[] objects, float radius)
@@ -32,7 +32,7 @@ public class CirclePlacement : MonoBehaviour
                 0.73f,  
                 Mathf.Sin(angle) * radius
             );
-            objects[i].transform.position = target.transform.position + newPosition;
+            objects[i].transform.position = Target.transform.position + newPosition;
         }
     }
 
@@ -48,7 +48,7 @@ public class CirclePlacement : MonoBehaviour
                 -3.5f,  
                 Mathf.Sin(angle) * radius
             );
-            objects[i].transform.position = target.transform.position + newPosition;
+            objects[i].transform.position = Target.transform.position + newPosition;
         }
     }
 }

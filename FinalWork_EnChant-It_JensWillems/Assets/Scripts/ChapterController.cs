@@ -7,28 +7,24 @@ public class ChapterController : MonoBehaviour
     {
         Chapter1,
         Chapter2,
-        Chapter3
+        Chapter3,
+        Chapter4
     }
 
+    [Header("References")]
     public Chapter currentChapter = Chapter.Chapter1;
-
-    public PositionManager positionManager;
-
+    public PositionManager PositionManager;
     public event Action<Chapter> OnChapterChanged;
 
     public void ChangeChapter(Chapter newChapter)
     {
         currentChapter = newChapter;
-        Debug.Log("Changed to chapter: " + currentChapter);
-
-        positionManager.TeleportToChapter(currentChapter);
-
+        PositionManager.TeleportToChapter(currentChapter);
         OnChapterChanged?.Invoke(currentChapter);
 
-        if (positionManager.playerGameObject != null)
+        if (PositionManager.PlayerGameObject != null)
         {
-            Vector3 playerPosition = positionManager.playerGameObject.transform.position;
-            //Debug.Log("Player position after changing chapter: " + playerPosition);
+            Vector3 playerPosition = PositionManager.PlayerGameObject.transform.position;
         }
         else
         {

@@ -25,7 +25,6 @@ public class FireOrbBehaviour : MonoBehaviour
 
         if (_mainCamera == null)
         {
-            Debug.LogError("Main camera not found in the scene!");
             return;
         }
 
@@ -39,7 +38,6 @@ public class FireOrbBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collide wtih:" + other.name);
         if (other.CompareTag("Enemy"))
         {
             AudioSourceImpact.Play();
@@ -62,28 +60,6 @@ public class FireOrbBehaviour : MonoBehaviour
 
             StartCoroutine(DealDamageAfterParticlesStop(other));
         }
-        /*
-        if (other.CompareTag("Untagged"))
-        {
-            AudioSourceImpact.Play();
-            AudioSourceShoot.Stop();
-            ParticleSystem.Stop();
-
-            if (ParentGameObject != null)
-            {
-                ParticleSystem[] particleSystems = ParentGameObject.GetComponentsInChildren<ParticleSystem>();
-
-                foreach (ParticleSystem ps in particleSystems)
-                {
-                    ps.Stop();
-                }
-            }
-            else
-            {
-                Debug.LogError("Parent GameObject is not assigned.");
-            }
-        }
-        */
     }
 
     private IEnumerator DealDamageAfterParticlesStop(Collider enemy)

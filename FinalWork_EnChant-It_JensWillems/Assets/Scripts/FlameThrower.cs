@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class FlameThrower : MonoBehaviour
 {
+    [Header("Settings")]
     public int DamageAmount = 1;
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("test");
-        Debug.Log("collide wtih:" + other.name);
         if (other.CompareTag("Enemy"))
         {
             StartCoroutine(DealDamageAfterParticlesStop(other));
-
         }
     }
 

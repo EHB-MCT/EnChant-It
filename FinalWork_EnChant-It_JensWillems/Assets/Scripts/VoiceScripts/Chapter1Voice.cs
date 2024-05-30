@@ -8,7 +8,6 @@ public class Chapter1Voice : MonoBehaviour
     public VoiceAnswers VoiceAnswers;
     public PositionManager PositionManager;
     public ChapterController chapterController;
-
     [Header("Audio clips")]
     public AudioClip[] audioClips;
 
@@ -49,10 +48,13 @@ public class Chapter1Voice : MonoBehaviour
                 Menu.EnableFirstTimeMenuOpening();
                 yield return new WaitUntil(() => menuOpenedFirstTime);
             }
-            if (currentClipIndex == 3 && !VoiceAnswers.Answer)
+
+            if (currentClipIndex == 3)
             {
+                VoiceAnswers.CanUpdateAnswer = true;
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
                 VoiceAnswers.Answer = false;
+                VoiceAnswers.CanUpdateAnswer = false; // Reset the flag
             }
 
             currentClipIndex++;
@@ -60,15 +62,12 @@ public class Chapter1Voice : MonoBehaviour
 
         if (chapterController.currentChapter == ChapterController.Chapter.Chapter1)
         {
-            if (chapterController.currentChapter == ChapterController.Chapter.Chapter1)
-            {
-                ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)chapterController.currentChapter + 1);
-                chapterController.ChangeChapter(nextChapter);
-            }
-            else
-            {
-                Debug.LogWarning("No next chapter available.");
-            }
+            ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)chapterController.currentChapter + 1);
+            chapterController.ChangeChapter(nextChapter);
+        }
+        else
+        {
+            Debug.LogWarning("No next chapter available.");
         }
     }
 
