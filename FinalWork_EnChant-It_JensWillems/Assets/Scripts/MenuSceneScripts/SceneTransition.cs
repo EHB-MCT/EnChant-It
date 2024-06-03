@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,11 +18,17 @@ public class SceneTransition : MonoBehaviour
             return;
         }
     }
+
     public void LoadScene(string[] options)
     {
         string option = options[0];
         if (option.Equals("start", StringComparison.OrdinalIgnoreCase))
         {
+            SceneManager.LoadScene(enchantItSceneName);
+        }
+        else if (option.Equals("sandbox", StringComparison.OrdinalIgnoreCase))
+        {
+            GameStateManager.Instance.DesiredChapter = ChapterController.Chapter.Chapter4;
             SceneManager.LoadScene(enchantItSceneName);
         }
         else if (option.Equals("quit", StringComparison.OrdinalIgnoreCase))

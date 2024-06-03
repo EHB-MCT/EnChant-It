@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class FireOrbBehaviour : MonoBehaviour
 {
     private Camera _mainCamera;
@@ -30,7 +29,10 @@ public class FireOrbBehaviour : MonoBehaviour
 
         Vector3 forwardDirection = _mainCamera.transform.forward;
         transform.rotation = Quaternion.LookRotation(forwardDirection);
+
+        StartCoroutine(StopParticlesAndDestroyAfterDelay());
     }
+
     void Update()
     {
         GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * Speed);
@@ -40,18 +42,14 @@ public class FireOrbBehaviour : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            Debug.Log("hit!");
             AudioSourceImpact.Play();
             AudioSourceShoot.Stop();
             ParticleSystem.Stop();
 
             if (ParentGameObject != null)
             {
-                ParticleSystem[] particleSystems = ParentGameObject.GetComponentsInChildren<ParticleSystem>();
-
-                foreach (ParticleSystem ps in particleSystems)
-                {
-                    ps.Stop();
-                }
+                StartCoroutine(StopParticlesAfterDelay());
             }
             else
             {
@@ -59,6 +57,20 @@ public class FireOrbBehaviour : MonoBehaviour
             }
 
             StartCoroutine(DealDamageAfterParticlesStop(other));
+        }
+    }
+
+    private IEnumerator StopParticlesAfterDelay()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            yield return null;
+        }
+
+        ParticleSystem[] particleSystems = ParentGameObject.GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem ps in particleSystems)
+        {
+            ps.Stop();
         }
     }
 
@@ -72,5 +84,16 @@ public class FireOrbBehaviour : MonoBehaviour
             enemyHealth.TakeDamage(DamageAmount);
         }
     }
-}
 
+    private IEnumerator StopParticlesAndDestroyAfterDelay()
+    {
+        yield return new WaitForSeconds(30f);
+
+        ParticleSystem[] particleSystems = ParentGameObject.GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem ps in particleSystems)
+        {
+            ps.Stop();
+        }
+        Destroy(gameObject);
+    }
+}

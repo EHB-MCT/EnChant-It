@@ -88,8 +88,10 @@ public class Chapter3Voice : MonoBehaviour
 
             if (currentClipIndex == 6 && !VoiceAnswers.Answer)
             {
+                VoiceAnswers.CanUpdateAnswer = true;
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
                 VoiceAnswers.Answer = false;
+                VoiceAnswers.CanUpdateAnswer = false; // Reset the flag
             }
 
        

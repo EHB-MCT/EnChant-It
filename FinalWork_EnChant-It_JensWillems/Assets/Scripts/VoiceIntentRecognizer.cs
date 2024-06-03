@@ -11,7 +11,7 @@ public class VoiceIntentRecognizer : MonoBehaviour
     public void GetIntent(WitResponseNode commandResult)
     {
         string intentName = commandResult.GetIntentName();
-
+        Debug.Log(intentName);
         switch (intentName)
         {
             case "cast_spell":

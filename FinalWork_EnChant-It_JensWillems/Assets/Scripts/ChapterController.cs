@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-
 public class ChapterController : MonoBehaviour
 {
     public enum Chapter
@@ -15,6 +14,12 @@ public class ChapterController : MonoBehaviour
     public Chapter currentChapter = Chapter.Chapter1;
     public PositionManager PositionManager;
     public event Action<Chapter> OnChapterChanged;
+
+    private void Start()
+    {
+        currentChapter = GameStateManager.Instance.DesiredChapter;
+        ChangeChapter(currentChapter);
+    }
 
     public void ChangeChapter(Chapter newChapter)
     {

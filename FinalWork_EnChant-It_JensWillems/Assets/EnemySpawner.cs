@@ -16,11 +16,15 @@ public class EnemySpawner : MonoBehaviour
 
     private List<GameObject> activeEnemies = new List<GameObject>();
     private int enemiesPerWave;
+    private bool spawning = false;
 
-    void Start()
+    public void StartSpawning()
     {
-        // Start the first wave
-        StartCoroutine(SpawnWaves());
+        if (!spawning)
+        {
+            spawning = true;
+            StartCoroutine(SpawnWaves());
+        }
     }
 
     IEnumerator SpawnWaves()

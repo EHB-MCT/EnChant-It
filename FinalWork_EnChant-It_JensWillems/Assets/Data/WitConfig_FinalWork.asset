@@ -19,16 +19,18 @@ MonoBehaviour:
     lang: en
     isPrivate: 0
     createdAt: 2024-05-28T00:40:57-0700
-    trainingStatus: 1
-    lastTrainDuration: 68
-    lastTrainedAt: 2024-05-28T02:38:31-0700
-    nextTrainAt: 2024-05-28T02:37:23-0700
+    trainingStatus: 3
+    lastTrainDuration: 63
+    lastTrainedAt: 2024-05-30T02:12:08-0700
+    nextTrainAt: 2024-05-30T02:18:08-0700
     intents:
     - id: 1407244676600472
       name: cast_Answer
       entities:
       - name: Answer:Answer
         id: 1549043715826302
+      - name: Book:Book
+        id: 853838803281511
     - id: 387765536946491
       name: cast_BookMenu
       entities:
@@ -56,7 +58,12 @@ MonoBehaviour:
       keywords:
       - keyword: Yes
         synonyms:
+        - continue
+        - ready
         - yes
+      - keyword: continue
+        synonyms:
+        - continue
     - name: Book
       id: 627594929862645
       lookups:

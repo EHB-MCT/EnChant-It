@@ -49,17 +49,8 @@ public class Menu : MonoBehaviour
                 }
                 Debug.Log("opening book");
 
-            } else if (menuCommandName.Equals("Next", StringComparison.OrdinalIgnoreCase))
-            {
-                //AutoFlip.FlipRightPage();
-
-            }
-            else if (menuCommandName.Equals("Previous", StringComparison.OrdinalIgnoreCase))
-            {
-                //AutoFlip.FlipLeftPage();
-
-            }
-            else if (menuCommandName.Equals("close", StringComparison.OrdinalIgnoreCase) && Book.enabled)
+            } 
+            if (menuCommandName.Equals("close", StringComparison.OrdinalIgnoreCase) )
             {
                 Spellbook.SetActive(false);
                 WorldSpaceCanvasController.moveWithCamera = true;

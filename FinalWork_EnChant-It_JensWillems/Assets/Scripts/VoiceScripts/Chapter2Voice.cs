@@ -76,14 +76,18 @@ public class Chapter2Voice : MonoBehaviour
             }
             if (currentClipIndex == 4 && !VoiceAnswers.Answer)
             {
+                VoiceAnswers.CanUpdateAnswer = true;
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
                 VoiceAnswers.Answer = false;
+                VoiceAnswers.CanUpdateAnswer = false; // Reset the flag
             }
 
             if (currentClipIndex == 6 && !VoiceAnswers.Answer)
             {
+                VoiceAnswers.CanUpdateAnswer = true;
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
                 VoiceAnswers.Answer = false;
+                VoiceAnswers.CanUpdateAnswer = false; // Reset the flag
             }
             currentClipIndex++;
         }

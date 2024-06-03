@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Chapter1Voice : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class Chapter1Voice : MonoBehaviour
     public VoiceAnswers VoiceAnswers;
     public PositionManager PositionManager;
     public ChapterController chapterController;
+
+    public Slider slider; 
+    public GameObject sliderObject; 
+
     [Header("Audio clips")]
     public AudioClip[] audioClips;
 
@@ -17,6 +22,7 @@ public class Chapter1Voice : MonoBehaviour
 
     private void Start()
     {
+        sliderObject.SetActive(false);
         audioSource = GetComponent<AudioSource>();
 
         // Subscribe to the OnMenuOpenedFirstTime event
@@ -52,6 +58,7 @@ public class Chapter1Voice : MonoBehaviour
             if (currentClipIndex == 3)
             {
                 VoiceAnswers.CanUpdateAnswer = true;
+                ShowSlider();
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
                 VoiceAnswers.Answer = false;
                 VoiceAnswers.CanUpdateAnswer = false; // Reset the flag
@@ -78,5 +85,28 @@ public class Chapter1Voice : MonoBehaviour
         {
             Menu.OnMenuOpenedFirstTime -= HandleMenuOpenedFirstTime;
         }
+    }
+
+
+    public void ShowSlider()
+    {
+        sliderObject.SetActive(true);
+        slider.value = 0;
+        StartCoroutine(IncreaseSliderValue());
+    }
+
+    private IEnumerator IncreaseSliderValue()
+    {
+        float elapsedTime = 0f;
+        float duration = 10f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            slider.value = Mathf.Lerp(0, 1, elapsedTime / duration);
+            yield return null;
+        }
+        sliderObject.SetActive(false);
+        slider.value = 0;
     }
 }

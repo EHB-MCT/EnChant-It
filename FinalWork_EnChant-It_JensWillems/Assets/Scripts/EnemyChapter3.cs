@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyChapter3 : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Transform PlayerTransform;
+
     void Start()
     {
-        
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            PlayerTransform = player.transform;
+        }
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+
+        transform.LookAt(PlayerTransform);
     }
 }
