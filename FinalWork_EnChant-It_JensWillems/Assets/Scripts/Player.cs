@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 
     public int maxMana = 100;
     public int currentMana;
-    public float manaRegenRate = 5f; // Mana regenerated per second
+    public float manaRegenRate = 5f; 
 
     public Slider healthSlider;
     public Slider manaSlider;
@@ -30,9 +30,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // Update sliders to match current health and mana
-        healthSlider.value = currentHealth;
-        manaSlider.value = currentMana;
+        UpdateHealthSlider();
+        UpdateManaSlider();
     }
 
     public void TakeDamage(int damage)
@@ -43,6 +42,7 @@ public class Player : MonoBehaviour
             currentHealth = 0;
             Die();
         }
+        UpdateHealthSlider();
         Debug.Log("Player Health: " + currentHealth);
     }
 
@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+        UpdateHealthSlider();
         Debug.Log("Player Health: " + currentHealth);
     }
 
@@ -63,6 +64,7 @@ public class Player : MonoBehaviour
         {
             currentMana = 0;
         }
+        UpdateManaSlider();
         Debug.Log("Player Mana: " + currentMana);
     }
 
@@ -81,6 +83,23 @@ public class Player : MonoBehaviour
             {
                 currentMana = maxMana;
             }
+            UpdateManaSlider();
+        }
+    }
+
+    private void UpdateHealthSlider()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.value = currentHealth;
+        }
+    }
+
+    private void UpdateManaSlider()
+    {
+        if (manaSlider != null)
+        {
+            manaSlider.value = currentMana;
         }
     }
 }

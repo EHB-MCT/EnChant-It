@@ -7,12 +7,12 @@ public class Enemy : MonoBehaviour
 
     public float moveSpeed = 3.0f;
     public float attackRange = 2.0f;
-    public float timeBetweenAttacks = 5f; 
+    public float timeBetweenAttacks = 5f;
     public int attackDamage = 5;
 
     private Transform playerTransform;
-    private Animator animator; 
-    private float timeSinceLastAttack = 0f; 
+    private Animator animator;
+    private float timeSinceLastAttack = 0f;
 
     void Start()
     {
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
     {
         if (playerTransform == null)
         {
-            return; 
+            return;
         }
 
         transform.LookAt(playerTransform);
@@ -42,19 +42,18 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            transform.position = transform.position;
-
             timeSinceLastAttack += Time.deltaTime;
 
             if (timeSinceLastAttack >= timeBetweenAttacks)
             {
                 animator.SetTrigger("AttackTrigger");
+                AttackPlayer(); 
                 timeSinceLastAttack = 0f;
             }
         }
     }
 
-    void AttackPlayer()
+    public void AttackPlayer()
     {
         Player player = playerTransform.GetComponent<Player>();
         if (player != null)
@@ -63,10 +62,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Die()
     {
         animator.SetTrigger("DieTrigger");
-
         OnDestroyed?.Invoke();
+        Destroy(gameObject, 2f); 
     }
 }

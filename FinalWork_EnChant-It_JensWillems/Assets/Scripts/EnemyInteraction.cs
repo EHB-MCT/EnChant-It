@@ -4,20 +4,21 @@ using System.Collections;
 public class EnemyInteraction : MonoBehaviour
 {
     public int MaxHealth = 10;
-    private int currentHealth;
-    private Animator animator;
-    private SkinnedMeshRenderer skinnedMeshRenderer;
+
+    private int _currentHealth;
+    private Animator _animator;
+    private SkinnedMeshRenderer _skinnedMeshRenderer;
     private SphereCollider sphereCollider;
-    private bool isDying = false;
+    private bool _isDying = false;
 
     private void Start()
     {
-        currentHealth = MaxHealth;
-        animator = GetComponentInParent<Animator>();
-        skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
+        _currentHealth = MaxHealth;
+        _animator = GetComponentInParent<Animator>();
+        _skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
         sphereCollider = GetComponent<SphereCollider>();
 
-        if (animator == null)
+        if (_animator == null)
         {
             Debug.LogError("Animator component not found on parent.");
         }
@@ -25,8 +26,8 @@ public class EnemyInteraction : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
-        if (currentHealth <= 0 && !isDying)
+        _currentHealth -= amount;
+        if (_currentHealth <= 0 && !_isDying)
         {
             Die();
         }
@@ -34,10 +35,10 @@ public class EnemyInteraction : MonoBehaviour
 
     void Die()
     {
-        if (animator != null)
+        if (_animator != null)
         {
             Debug.Log("die");
-            animator.SetBool("Die", true);
+            _animator.SetBool("Die", true);
         }
 
         if (sphereCollider != null)
@@ -45,14 +46,14 @@ public class EnemyInteraction : MonoBehaviour
             sphereCollider.enabled = false;
         }
 
-        isDying = true;
+        _isDying = true;
     }
 
     private void Update()
     {
-        if (isDying && animator != null)
+        if (_isDying && _animator != null)
         {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
 
             if (stateInfo.IsName("Die") && stateInfo.normalizedTime >= 1.0f)
             {
@@ -63,9 +64,9 @@ public class EnemyInteraction : MonoBehaviour
 
     private void OnDieAnimationComplete()
     {
-        if (skinnedMeshRenderer != null)
+        if (_skinnedMeshRenderer != null)
         {
-            skinnedMeshRenderer.enabled = false;
+            _skinnedMeshRenderer.enabled = false;
         }
 
         StartCoroutine(Respawn());
@@ -74,16 +75,16 @@ public class EnemyInteraction : MonoBehaviour
     IEnumerator Respawn()
     {
         yield return new WaitForSeconds(5f);
-        currentHealth = MaxHealth;
+        _currentHealth = MaxHealth;
 
-        if (animator != null)
+        if (_animator != null)
         {
-            animator.SetBool("Die", false);
+            _animator.SetBool("Die", false);
         }
 
-        if (skinnedMeshRenderer != null)
+        if (_skinnedMeshRenderer != null)
         {
-            skinnedMeshRenderer.enabled = true;
+            _skinnedMeshRenderer.enabled = true;
         }
 
         if (sphereCollider != null)
@@ -91,6 +92,6 @@ public class EnemyInteraction : MonoBehaviour
             sphereCollider.enabled = true;
         }
 
-        isDying = false;
+        _isDying = false;
     }
 }

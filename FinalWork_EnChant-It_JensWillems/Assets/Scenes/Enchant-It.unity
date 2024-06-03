@@ -2599,6 +2599,7 @@ GameObject:
   - component: {fileID: 290086627}
   - component: {fileID: 290086629}
   - component: {fileID: 290086630}
+  - component: {fileID: 290086631}
   - component: {fileID: 290086628}
   m_Layer: 0
   m_Name: AIVoices
@@ -2790,6 +2791,25 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c7a2867e1c5cd6e43913fc80c99d570f, type: 3}
   - {fileID: 8300000, guid: 92e3204b39dfc0f489958d00ca07faa6, type: 3}
   - {fileID: 8300000, guid: 55794c36e40b30544a470c68ae062253, type: 3}
+--- !u!114 &290086631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290086625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1b348eaa191bc45b1bac5d7725bc70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PositionManager: {fileID: 149121481}
+  chapterController: {fileID: 149121482}
+  VoiceAnswers: {fileID: 2089215771}
+  CastingSpell: {fileID: 925547993}
+  EnemySpawner: {fileID: 1473658960}
+  audioClips:
+  - {fileID: 8300000, guid: 33c225ae8168dbd42846b211ff0afa61, type: 3}
 --- !u!1 &302439135
 GameObject:
   m_ObjectHideFlags: 0
@@ -5862,7 +5882,7 @@ Transform:
   m_GameObject: {fileID: 782307092}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.094444826, z: -0, w: 0.9955301}
-  m_LocalPosition: {x: 109.96338, y: -28.7, z: -308.65}
+  m_LocalPosition: {x: 109.45, y: -28.185, z: -308.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9514,33 +9534,37 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 197.22269
+      value: 881.9
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 136.33463
+      value: 176.65247
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 62.320835
+      value: 680.1
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9594894
+      value: 0.6247331
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.27798417
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.044067174
+      value: -0.7808385
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.012771783
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9982,7 +10006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 775453146837609954, guid: d6739a72b65d21b45ab682a7806941a4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -88.43
+      value: -89.77
       objectReference: {fileID: 0}
     - target: {fileID: 775453146837609954, guid: d6739a72b65d21b45ab682a7806941a4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11263,13 +11287,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec9978065f6aaa4088179f3f4ef83f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1571812027}
-  enemyPrefabs:
+  Player: {fileID: 1571812027}
+  EnemyPrefabs:
   - {fileID: 7116554709369694851, guid: 0eda943e57228244880aa2a287821720, type: 3}
-  waveNumber: 1
-  spawnRadius: 10
-  minSpawnDelay: 2
-  maxSpawnDelay: 5
+  WaveNumber: 1
+  SpawnRadius: 50
+  MinSpawnDelay: 2
+  MaxSpawnDelay: 5
 --- !u!1 &1482434396
 GameObject:
   m_ObjectHideFlags: 0

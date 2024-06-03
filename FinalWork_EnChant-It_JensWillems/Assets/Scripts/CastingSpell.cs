@@ -68,7 +68,6 @@ public class CastingSpell : MonoBehaviour
                 GameObject flameThrowerInstance = Instantiate(FlameThrower, spawnPosition, spawnRotation);
                 flameThrowerInstance.transform.SetParent(SpellSpawnPoint.transform);
             }
-
             // Heal
             if (spellName.Equals("heal", StringComparison.OrdinalIgnoreCase) && PlayerCharacter.currentMana >= HealManaCost)
             {
@@ -76,10 +75,10 @@ public class CastingSpell : MonoBehaviour
                 PlayerCharacter.UseMana(HealManaCost);
                 Debug.Log("found spell");
 
-                Vector3 spawnPosition = SpellSpawnPoint.transform.position;
+                Vector3 playerPosition = PlayerCharacter.transform.position - new Vector3(0f, 1.5f, 0f); 
                 Quaternion spawnRotation = SpellSpawnPoint.transform.rotation;
-                Debug.Log("do healing");
-                Instantiate(HealSpell, TeleportEffectParent.transform.position, Quaternion.identity, SpawnEffectParent);
+
+                Instantiate(HealSpell, playerPosition, spawnRotation);
             }
         }
     }

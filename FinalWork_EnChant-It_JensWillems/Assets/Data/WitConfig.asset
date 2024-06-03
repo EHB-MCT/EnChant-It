@@ -21,8 +21,8 @@ MonoBehaviour:
     createdAt: 2024-05-28T00:40:57-0700
     trainingStatus: 1
     lastTrainDuration: 55
-    lastTrainedAt: 2024-05-31T01:13:22-0700
-    nextTrainAt: 2024-05-31T01:12:27-0700
+    lastTrainedAt: 2024-06-02T23:08:45-0700
+    nextTrainAt: 2024-06-02T23:07:50-0700
     intents:
     - id: 1407244676600472
       name: cast_Answer
