@@ -26,7 +26,6 @@ public class CastingSpell : MonoBehaviour
     public bool CastHealSpell = false;
     public void UpdateSpell(string[] spells)
     {
-        Debug.Log("Update spells being done!");
         if (spells.Length != 0)
         {
             CastSpell(spells);
@@ -43,13 +42,16 @@ public class CastingSpell : MonoBehaviour
     {
         if (spellNames.Length > 0)
         {
+
+            Debug.Log("this is done now");
             string spellName = spellNames[0];
 
             // Fire ball
-            if (spellName.Equals("fire", StringComparison.OrdinalIgnoreCase) && PlayerCharacter.currentMana >= FireManaCost)
+            if (spellName.Equals("fire", StringComparison.OrdinalIgnoreCase))
             {
+                Debug.Log("casting fire");
                 CastFireSpell = true;
-                PlayerCharacter.UseMana(FireManaCost);
+                //PlayerCharacter.UseMana(FireManaCost);
 
                 Vector3 spawnPosition = SpellSpawnPoint.transform.position;
                 Instantiate(FireBall, spawnPosition, Quaternion.identity);

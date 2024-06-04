@@ -13,6 +13,9 @@ public class FireOrbBehaviour : MonoBehaviour
     public AudioSource AudioSourceShoot;
     public ParticleSystem ParticleSystem;
 
+    public float Damage = 25f;
+
+
     public void Awake()
     {
         ParticleSystem = GetComponent<ParticleSystem>();
@@ -42,6 +45,13 @@ public class FireOrbBehaviour : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+
+            EnemyManager enemyManager = other.transform.GetComponent<EnemyManager>();
+            if (enemyManager != null)
+            {
+                enemyManager.Hit(Damage);
+            }
+
             Debug.Log("hit!");
             AudioSourceImpact.Play();
             AudioSourceShoot.Stop();
@@ -87,7 +97,7 @@ public class FireOrbBehaviour : MonoBehaviour
 
     private IEnumerator StopParticlesAndDestroyAfterDelay()
     {
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(15f);
 
         ParticleSystem[] particleSystems = ParentGameObject.GetComponentsInChildren<ParticleSystem>();
         foreach (ParticleSystem ps in particleSystems)

@@ -8,7 +8,7 @@ public class Chapter4Voice : MonoBehaviour
     public ChapterController chapterController;
     public VoiceAnswers VoiceAnswers;
     public CastingSpell CastingSpell;
-    public EnemySpawner EnemySpawner;
+    public GameManager GameManager;
 
     [Header("Audio clips")]
     public AudioClip[] audioClips;
@@ -76,8 +76,7 @@ public class Chapter4Voice : MonoBehaviour
             }
             currentClipIndex++;
         }
-        EnemySpawner.StartSpawning();
-
+        GameManager.StartTest = true;
 
     }
 }

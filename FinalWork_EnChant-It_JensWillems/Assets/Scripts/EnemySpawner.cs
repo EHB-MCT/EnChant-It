@@ -6,24 +6,18 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("References")]
     public GameObject Player;
-    public GameObject[] EnemyPrefabs; 
+    public GameObject[] EnemyPrefabs;
 
     [Header("Settings")]
-    public int WaveNumber = 1; 
-    public float SpawnRadius = 10f; 
+    public int WaveNumber = 1;
+    public float SpawnRadius = 10f;
     public float MinSpawnDelay = 2f;
-    public float MaxSpawnDelay = 5f; 
+    public float MaxSpawnDelay = 5f;
 
     private List<GameObject> _activeEnemies = new List<GameObject>();
     private int enemiesPerWave;
     private bool spawning = false;
 
-    /*
-    private void Start()
-    {
-        StartSpawning();
-    }
-    */
     public void StartSpawning()
     {
         if (!spawning)
@@ -59,6 +53,17 @@ public class EnemySpawner : MonoBehaviour
         Vector3 enemyPosition = new Vector3(Player.transform.position.x + spawnPosition.x, Player.transform.position.y, Player.transform.position.z + spawnPosition.y);
 
         GameObject enemy = Instantiate(EnemyPrefabs[enemyIndex], enemyPosition, Quaternion.identity);
+
+        // Ignore collisions with other enemies
+        Collider enemyCollider = enemy.GetComponent<Collider>();
+        foreach (GameObject activeEnemy in _activeEnemies)
+        {
+            Collider activeEnemyCollider = activeEnemy.GetComponent<Collider>();
+            if (activeEnemyCollider != null)
+            {
+                Physics.IgnoreCollision(enemyCollider, activeEnemyCollider);
+            }
+        }
 
         _activeEnemies.Add(enemy);
 
