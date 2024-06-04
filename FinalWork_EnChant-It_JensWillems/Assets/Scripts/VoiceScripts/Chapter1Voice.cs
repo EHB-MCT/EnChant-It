@@ -92,9 +92,10 @@ public class Chapter1Voice : MonoBehaviour
     {
         sliderObject.SetActive(true);
         slider.value = 0;
-        StartCoroutine(IncreaseSliderValue());
+        //StartCoroutine(IncreaseSliderValue());
     }
 
+    /*
     private IEnumerator IncreaseSliderValue()
     {
         float elapsedTime = 0f;
@@ -109,4 +110,5 @@ public class Chapter1Voice : MonoBehaviour
         sliderObject.SetActive(false);
         slider.value = 0;
     }
+    */
 }

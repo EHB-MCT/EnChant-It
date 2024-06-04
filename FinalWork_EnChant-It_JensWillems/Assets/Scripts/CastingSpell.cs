@@ -58,7 +58,7 @@ public class CastingSpell : MonoBehaviour
             }
 
             // Flamethrower
-            if (spellName.Equals("Inferno", StringComparison.OrdinalIgnoreCase) && PlayerCharacter.currentMana >= InfernoManaCost)
+            if (spellName.Equals("Inferno", StringComparison.OrdinalIgnoreCase))
             {
                 PlayerCharacter.UseMana(InfernoManaCost);
 
@@ -67,9 +67,10 @@ public class CastingSpell : MonoBehaviour
 
                 GameObject flameThrowerInstance = Instantiate(FlameThrower, spawnPosition, spawnRotation);
                 flameThrowerInstance.transform.SetParent(SpellSpawnPoint.transform);
+                flameThrowerInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             }
             // Heal
-            if (spellName.Equals("heal", StringComparison.OrdinalIgnoreCase) && PlayerCharacter.currentMana >= HealManaCost)
+            if (spellName.Equals("heal", StringComparison.OrdinalIgnoreCase))
             {
                 CastHealSpell = true;
                 PlayerCharacter.UseMana(HealManaCost);

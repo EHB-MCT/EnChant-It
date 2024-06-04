@@ -15,7 +15,6 @@ public class FireOrbBehaviour : MonoBehaviour
 
     public float Damage = 25f;
 
-
     public void Awake()
     {
         ParticleSystem = GetComponent<ParticleSystem>();
@@ -41,12 +40,11 @@ public class FireOrbBehaviour : MonoBehaviour
         GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * Speed);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-
-            EnemyManager enemyManager = other.transform.GetComponent<EnemyManager>();
+            EnemyManager enemyManager = collision.transform.GetComponent<EnemyManager>();
             if (enemyManager != null)
             {
                 enemyManager.Hit(Damage);
@@ -66,7 +64,7 @@ public class FireOrbBehaviour : MonoBehaviour
                 Debug.LogError("Parent GameObject is not assigned.");
             }
 
-            StartCoroutine(DealDamageAfterParticlesStop(other));
+            StartCoroutine(DealDamageAfterParticlesStop(collision.collider));
         }
     }
 
