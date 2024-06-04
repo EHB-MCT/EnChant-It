@@ -50,7 +50,6 @@ public class CastingSpell : MonoBehaviour
             {
                 CastFireSpell = true;
                 PlayerCharacter.UseMana(FireManaCost);
-                Debug.Log("found spell");
 
                 Vector3 spawnPosition = SpellSpawnPoint.transform.position;
                 Instantiate(FireBall, spawnPosition, Quaternion.identity);
@@ -60,7 +59,6 @@ public class CastingSpell : MonoBehaviour
             if (spellName.Equals("Inferno", StringComparison.OrdinalIgnoreCase) && PlayerCharacter.currentMana >= InfernoManaCost)
             {
                 PlayerCharacter.UseMana(InfernoManaCost);
-                Debug.Log("found spell");
 
                 Vector3 spawnPosition = SpellSpawnPoint.transform.position;
                 Quaternion spawnRotation = SpellSpawnPoint.transform.rotation;
@@ -73,7 +71,6 @@ public class CastingSpell : MonoBehaviour
             {
                 CastHealSpell = true;
                 PlayerCharacter.UseMana(HealManaCost);
-                Debug.Log("found spell");
 
                 Vector3 playerPosition = PlayerCharacter.transform.position - new Vector3(0f, 1.5f, 0f); 
                 Quaternion spawnRotation = SpellSpawnPoint.transform.rotation;
