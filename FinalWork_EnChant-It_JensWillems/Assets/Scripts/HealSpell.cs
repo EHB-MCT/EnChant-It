@@ -6,7 +6,7 @@ public class HealSpell : MonoBehaviour
 {
     public int healAmount = 20;
     public float healInterval = 1f;
-    public float duration = 6.0f; 
+    public float duration = 6.0f;
 
     private float healTimer;
     private float durationTimer;
@@ -39,10 +39,10 @@ public class HealSpell : MonoBehaviour
 
     void HealPlayer()
     {
-        Player playerHealth = FindObjectOfType<Player>();
-        if (playerHealth != null)
+        PlayerManager playerManager = FindObjectOfType<PlayerManager>();
+        if (playerManager != null)
         {
-            playerHealth.Heal(healAmount);
+            playerManager.Heal(healAmount);
         }
     }
 }

@@ -10,7 +10,7 @@ public class Chapter1Voice : MonoBehaviour
     public PositionManager PositionManager;
     public ChapterController chapterController;
 
-    public Slider slider; 
+    //public Slider slider; 
     public GameObject sliderObject; 
 
     [Header("Audio clips")]
@@ -22,7 +22,7 @@ public class Chapter1Voice : MonoBehaviour
 
     private void Start()
     {
-        sliderObject.SetActive(false);
+        //sliderObject.SetActive(false);
         audioSource = GetComponent<AudioSource>();
 
         // Subscribe to the OnMenuOpenedFirstTime event
@@ -90,8 +90,8 @@ public class Chapter1Voice : MonoBehaviour
 
     public void ShowSlider()
     {
-        sliderObject.SetActive(true);
-        slider.value = 0;
+       //sliderObject.SetActive(true);
+        //slider.value = 0;
         //StartCoroutine(IncreaseSliderValue());
     }
 

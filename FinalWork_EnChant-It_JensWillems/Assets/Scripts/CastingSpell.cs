@@ -10,7 +10,7 @@ public class CastingSpell : MonoBehaviour
 
     public GameObject SpellSpawnPoint;
     public Camera MainCamera;
-    public Player PlayerCharacter; 
+    public GameObject Player;
 
     public Transform TeleportEffectParent;
     public Transform SpawnEffectParent;
@@ -42,7 +42,6 @@ public class CastingSpell : MonoBehaviour
     {
         if (spellNames.Length > 0)
         {
-
             Debug.Log("this is done now");
             string spellName = spellNames[0];
 
@@ -60,22 +59,19 @@ public class CastingSpell : MonoBehaviour
             // Flamethrower
             if (spellName.Equals("Inferno", StringComparison.OrdinalIgnoreCase))
             {
-                PlayerCharacter.UseMana(InfernoManaCost);
-
                 Vector3 spawnPosition = SpellSpawnPoint.transform.position;
                 Quaternion spawnRotation = SpellSpawnPoint.transform.rotation;
 
                 GameObject flameThrowerInstance = Instantiate(FlameThrower, spawnPosition, spawnRotation);
                 flameThrowerInstance.transform.SetParent(SpellSpawnPoint.transform);
-                flameThrowerInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                flameThrowerInstance.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             }
             // Heal
             if (spellName.Equals("heal", StringComparison.OrdinalIgnoreCase))
             {
                 CastHealSpell = true;
-                PlayerCharacter.UseMana(HealManaCost);
 
-                Vector3 playerPosition = PlayerCharacter.transform.position - new Vector3(0f, 1.5f, 0f); 
+                Vector3 playerPosition = Player.transform.position - new Vector3(0f, 1.5f, 0f); 
                 Quaternion spawnRotation = SpellSpawnPoint.transform.rotation;
 
                 Instantiate(HealSpell, playerPosition, spawnRotation);

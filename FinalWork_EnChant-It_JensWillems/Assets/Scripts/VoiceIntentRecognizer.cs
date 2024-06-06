@@ -7,6 +7,7 @@ public class VoiceIntentRecognizer : MonoBehaviour
     public CastingSpell CastingSpell;
     public Menu Menu;
     public VoiceAnswers VoiceAnswers;
+    public MainMenuManager MainMenuManager;
 
     public void GetIntent(WitResponseNode commandResult)
     {
@@ -22,6 +23,9 @@ public class VoiceIntentRecognizer : MonoBehaviour
                 break;
             case "cast_Answer":
                 VoiceAnswers.UpdateAnswer(commandResult.GetAllEntityValues("Answer:Answer"));
+                break;
+            case "cast_MainMenu":
+                MainMenuManager.UpdateOption(commandResult.GetAllEntityValues("Option:Option"));
                 break;
             default:
                 Debug.LogWarning("This intent or word doesn't exist in the Wit.AI config");

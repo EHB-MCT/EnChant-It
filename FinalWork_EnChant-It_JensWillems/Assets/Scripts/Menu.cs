@@ -28,7 +28,7 @@ public class Menu : MonoBehaviour
         if (menuCommands.Length == 0 || menuCommands[0] == "spell")
         {
             return;
-        }
+        } 
     }
 
     public void MenuCommands(string[] menuCommands)

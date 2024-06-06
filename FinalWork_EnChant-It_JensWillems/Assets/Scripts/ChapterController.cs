@@ -28,7 +28,7 @@ public class ChapterController : MonoBehaviour
 
     public void ChangeChapter(Chapter newChapter)
     {
-            Debug.Log("skip: " + _skip);   
+        Debug.Log("skip: " + _skip);
         if (!initialized && _skip)
         {
             initialized = true;
@@ -54,12 +54,6 @@ public class ChapterController : MonoBehaviour
         }
     }
 
-    /*
-    private void OnValidate()
-    {
-        ChangeChapter(currentChapter);
-    }
-    */
     private void TeleportDirectlyToChapter(Chapter chapter)
     {
         currentChapter = chapter;

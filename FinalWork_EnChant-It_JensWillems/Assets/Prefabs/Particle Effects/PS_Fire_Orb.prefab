@@ -24197,13 +24197,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93707568a41f7fd46ab02925e6f94c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
-  DamageAmount: 10
+  Speed: 50
+  DamageAmount: 50
   AudioSourceImpact: {fileID: 3354322739658776814}
   ParentGameObject: {fileID: 7744098581499044749}
   AudioSourceShoot: {fileID: 1030561116728931387}
   ParticleSystem: {fileID: 6692653581880968163}
-  Damage: 25
+  Damage: 50
 --- !u!82 &3354322739658776814
 AudioSource:
   m_ObjectHideFlags: 0

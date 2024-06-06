@@ -20,9 +20,9 @@ MonoBehaviour:
     isPrivate: 0
     createdAt: 2024-05-28T00:40:57-0700
     trainingStatus: 1
-    lastTrainDuration: 55
-    lastTrainedAt: 2024-06-02T23:08:45-0700
-    nextTrainAt: 2024-06-02T23:07:50-0700
+    lastTrainDuration: 64
+    lastTrainedAt: 2024-06-05T01:22:03-0700
+    nextTrainAt: 2024-06-05T01:20:59-0700
     intents:
     - id: 1407244676600472
       name: cast_Answer
@@ -104,12 +104,17 @@ MonoBehaviour:
       - name: Option
         id: 1439735193333932
       keywords:
+      - keyword: Main
+        synonyms:
+        - main
       - keyword: Quit
         synonyms:
         - quit
       - keyword: Sandbox
         synonyms:
+        - freemode
         - sandbox
+        - send books
       - keyword: Start
         synonyms:
         - start
