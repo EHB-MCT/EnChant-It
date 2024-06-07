@@ -5,10 +5,10 @@ public class EnemyInteraction : MonoBehaviour
 {
     public int MaxHealth = 10;
 
-    private int _currentHealth;
+    private float _currentHealth;
     private Animator _animator;
     private SkinnedMeshRenderer _skinnedMeshRenderer;
-    private SphereCollider sphereCollider;
+    private SphereCollider _sphereCollider;
     private bool _isDying = false;
 
     private void Start()
@@ -16,7 +16,7 @@ public class EnemyInteraction : MonoBehaviour
         _currentHealth = MaxHealth;
         _animator = GetComponentInParent<Animator>();
         _skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
-        sphereCollider = GetComponent<SphereCollider>();
+        _sphereCollider = GetComponent<SphereCollider>();
 
         if (_animator == null)
         {
@@ -24,12 +24,13 @@ public class EnemyInteraction : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float damage)
     {
-        _currentHealth -= amount;
-        if (_currentHealth <= 0 && !_isDying)
+        _currentHealth -= damage;
+        if (_currentHealth <= 0)
         {
-            Die();
+            _animator.SetTrigger("isDead");
+            Invoke("Die", 4);
         }
     }
 
@@ -37,13 +38,12 @@ public class EnemyInteraction : MonoBehaviour
     {
         if (_animator != null)
         {
-            Debug.Log("die");
-            _animator.SetBool("Die", true);
+            Debug.Log("isDead");
         }
 
-        if (sphereCollider != null)
+        if (_sphereCollider != null)
         {
-            sphereCollider.enabled = false;
+            _sphereCollider.enabled = false;
         }
 
         _isDying = true;
@@ -74,12 +74,12 @@ public class EnemyInteraction : MonoBehaviour
 
     IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(8f);
         _currentHealth = MaxHealth;
 
         if (_animator != null)
         {
-            _animator.SetBool("Die", false);
+            _animator.SetTrigger("isAlive");
         }
 
         if (_skinnedMeshRenderer != null)
@@ -87,11 +87,10 @@ public class EnemyInteraction : MonoBehaviour
             _skinnedMeshRenderer.enabled = true;
         }
 
-        if (sphereCollider != null)
+        if (_sphereCollider != null)
         {
-            sphereCollider.enabled = true;
+            _sphereCollider.enabled = true;
         }
-
         _isDying = false;
     }
 }

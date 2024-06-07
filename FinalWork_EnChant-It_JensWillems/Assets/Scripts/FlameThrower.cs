@@ -5,7 +5,7 @@ using UnityEngine;
 public class FlameThrower : MonoBehaviour
 {
     [Header("Settings")]
-    public int DamageAmount = 1;
+    public float DamageAmount = 1;
 
     private ParticleSystem flameThrowerParticles;
     private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();

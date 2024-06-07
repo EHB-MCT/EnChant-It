@@ -64,14 +64,14 @@ public class CastingSpell : MonoBehaviour
 
                 GameObject flameThrowerInstance = Instantiate(FlameThrower, spawnPosition, spawnRotation);
                 flameThrowerInstance.transform.SetParent(SpellSpawnPoint.transform);
-                flameThrowerInstance.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                flameThrowerInstance.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
             }
             // Heal
             if (spellName.Equals("heal", StringComparison.OrdinalIgnoreCase))
             {
                 CastHealSpell = true;
 
-                Vector3 playerPosition = Player.transform.position - new Vector3(0f, 1.5f, 0f); 
+                Vector3 playerPosition = Player.transform.position - new Vector3(0f, 0f, 0f); 
                 Quaternion spawnRotation = SpellSpawnPoint.transform.rotation;
 
                 Instantiate(HealSpell, playerPosition, spawnRotation);

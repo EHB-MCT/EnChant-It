@@ -69,7 +69,7 @@ public class EnemyManager : MonoBehaviour
             Destroy(GetComponent<EnemyManager>());
             Destroy(GetComponent<SphereCollider>());
             Debug.Log("killed one");
-            gameManager.enemiesAlive--;
+            gameManager.EnemiesAlive--;
 
         }
     }

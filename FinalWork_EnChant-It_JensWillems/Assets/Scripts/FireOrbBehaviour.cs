@@ -66,6 +66,13 @@ public class FireOrbBehaviour : MonoBehaviour
 
             StartCoroutine(DealDamageAfterParticlesStop(collision.collider));
         }
+
+        Invoke("OnImpactDestroy", 3);
+    }
+
+    public void OnImpactDestroy()
+    {
+        Destroy(gameObject);
     }
 
     private IEnumerator StopParticlesAfterDelay()
@@ -95,7 +102,7 @@ public class FireOrbBehaviour : MonoBehaviour
 
     private IEnumerator StopParticlesAndDestroyAfterDelay()
     {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(10f);
 
         ParticleSystem[] particleSystems = ParentGameObject.GetComponentsInChildren<ParticleSystem>();
         foreach (ParticleSystem ps in particleSystems)

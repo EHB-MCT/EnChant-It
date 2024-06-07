@@ -7,7 +7,6 @@ public class Chapter4Voice : MonoBehaviour
     public PositionManager PositionManager;
     public ChapterController chapterController;
     public VoiceAnswers VoiceAnswers;
-    public CastingSpell CastingSpell;
     public GameManager GameManager;
 
     [Header("Audio clips")]
@@ -42,6 +41,7 @@ public class Chapter4Voice : MonoBehaviour
         {
             if (PositionManager.transitioningBetweenChapters)
             {
+
             }
             else
             {
@@ -76,7 +76,7 @@ public class Chapter4Voice : MonoBehaviour
             }
             currentClipIndex++;
         }
-        GameManager.StartTest = true;
+        GameManager.StartWave = true;
 
     }
 }

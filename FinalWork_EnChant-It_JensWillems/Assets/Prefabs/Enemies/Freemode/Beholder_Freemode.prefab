@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   enemyAnimator: {fileID: 9116135158170771649}
-  damage: 0
+  damage: 10
   health: 50
   gameManager: {fileID: 0}
   slider: {fileID: 8444639113647783744}
