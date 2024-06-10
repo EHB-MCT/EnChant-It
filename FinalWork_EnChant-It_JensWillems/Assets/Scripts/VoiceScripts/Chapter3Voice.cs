@@ -81,12 +81,12 @@ public class Chapter3Voice : MonoBehaviour
                 enemyAnimator.SetTrigger("Idle");
 
             }
-            if (currentClipIndex == 3 && !CastingSpell.CastHealSpell)
+            if (currentClipIndex == 2 && !CastingSpell.CastHealSpell)
             {
                 yield return new WaitUntil(() => CastingSpell.CastHealSpell);
             }
 
-            if (currentClipIndex == 6 && !VoiceAnswers.Answer)
+            if (currentClipIndex == 5 && !VoiceAnswers.Answer)
             {
                 VoiceAnswers.CanUpdateAnswer = true;
                 yield return new WaitUntil(() => VoiceAnswers.Answer);

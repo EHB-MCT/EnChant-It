@@ -6,9 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public string enchantItSceneName;
-    public GameManager gameManager;
-    public static bool skipTeleportEffect;
+    public string EnchantItSceneName;
+    public GameManager GameManager;
+
+    // Check dit later nog
+    public static bool SkipTeleportEffect;
+
+    public GameObject WinScreen;
+    public GameObject EndScreen;
 
     public void UpdateOption(string[] options)
     {
@@ -29,7 +34,10 @@ public class MainMenuManager : MonoBehaviour
         string option = options[0];
         if (option.Equals("main", StringComparison.OrdinalIgnoreCase))
         {
-            gameManager.MainMenu();
+            if(WinScreen.activeSelf || EndScreen.activeSelf)
+            {
+            GameManager.MainMenu();
+            }
         }
     }
 }

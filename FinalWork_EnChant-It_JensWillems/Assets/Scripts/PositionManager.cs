@@ -16,6 +16,8 @@ public class PositionManager : MonoBehaviour
     public Transform TeleportEffectParent;
     public Transform SpawnEffectParent;
 
+    public GameObject Spellbook;
+
     public bool transitioningBetweenChapters = false;
     private bool _skip;
     public event Action OnSpawnEffectsCompleted;
@@ -78,7 +80,7 @@ public class PositionManager : MonoBehaviour
     private IEnumerator TeleportWithEffects(Vector3 newPosition, Quaternion newRotation)
     {
         Debug.Log("TeleportWithEffects coroutine called.");
-
+        Spellbook.SetActive(false);
         var playerController = PlayerGameObject.GetComponent<OVRPlayerController>();
         if (playerController != null)
         {

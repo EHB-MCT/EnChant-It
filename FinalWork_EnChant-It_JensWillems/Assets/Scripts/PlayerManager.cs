@@ -15,9 +15,14 @@ public class PlayerManager : MonoBehaviour
     private float shakeDuration;
     private Quaternion playerCameraOriginalRotation;
 
+    // Health bar related fields
+    public GameObject Bar;
+    public bool RecoverHealth;
+
     void Start()
     {
-       // playerCameraOriginalRotation = playerCamera.transform.localRotation;
+        // playerCameraOriginalRotation = playerCamera.transform.localRotation;
+        UpdateHealthBar();
     }
 
     void Update()
@@ -31,18 +36,33 @@ public class PlayerManager : MonoBehaviour
             shakeTime += Time.deltaTime;
             CameraShake();
         }
-       /*
+        /*
         else if (playerCamera.transform.localRotation != playerCameraOriginalRotation)
         {
             playerCamera.transform.localRotation = playerCameraOriginalRotation;
         }
-       */
+        */
+
+        if (RecoverHealth)
+        {
+            if (health < 100)
+            {
+                health += Time.deltaTime * 5; // Example recovery rate
+                if (health > 100)
+                {
+                    health = 100;
+                    RecoverHealth = false;
+                }
+                UpdateHealthDisplay();
+            }
+        }
     }
 
     public void Hit(float damage)
     {
         health -= damage;
-        healthNum.text = health.ToString() + " Health ";
+        if (health < 0) health = 0;
+        UpdateHealthDisplay();
         if (health <= 0)
         {
             gameManager.EndGame();
@@ -58,12 +78,23 @@ public class PlayerManager : MonoBehaviour
     public void Heal(float healAmount)
     {
         health += healAmount;
-        if (health > 100) health = 100; 
-        healthNum.text = health.ToString() + " Health ";
+        if (health > 100) health = 100;
+        UpdateHealthDisplay();
     }
 
     public void CameraShake()
     {
         playerCamera.transform.localRotation = Quaternion.Euler(Random.Range(-2, 2), 0, 0);
+    }
+
+    private void UpdateHealthDisplay()
+    {
+        healthNum.text = health.ToString("F0") + " Health";
+        UpdateHealthBar();
+    }
+
+    private void UpdateHealthBar()
+    {
+        Bar.GetComponent<RectTransform>().sizeDelta = new Vector2(health, Bar.GetComponent<RectTransform>().sizeDelta.y);
     }
 }

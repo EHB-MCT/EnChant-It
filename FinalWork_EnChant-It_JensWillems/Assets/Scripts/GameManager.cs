@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -15,10 +16,15 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI RoundNum;
     public TextMeshProUGUI RoundsSurvived;
     public GameObject EndScreen;
+    public GameObject WinScreen;
     public Animator BlackScreenAnimator;
     public bool StartWave = false;
     public ChapterController ChapterController;
     private bool IsRoundInProgress = false;
+
+    public GameObject HealthBar;
+
+    private List<GameObject> SpawnedEnemies = new List<GameObject>();
 
     private void Start()
     {
@@ -34,7 +40,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Pause();
+            //Pause();
         }
     }
 
@@ -42,13 +48,11 @@ public class GameManager : MonoBehaviour
     {
         IsRoundInProgress = true;
 
-        // Wait until all enemies are dead
         while (EnemiesAlive > 0)
         {
             yield return null;
         }
 
-        // Wait for the round interval
         yield return new WaitForSeconds(RoundInterval);
 
         Round++;
@@ -60,11 +64,10 @@ public class GameManager : MonoBehaviour
             RoundNum.text = "Round: " + Round.ToString();
         }
 
-        if (Round >= MaxRounds)
+        if (Round > MaxRounds)
         {
             Debug.Log("you did it");
-            // Play sound for completing all rounds
-            // You can add your sound playing code here
+            WinGame();
         }
 
         IsRoundInProgress = false;
@@ -76,17 +79,40 @@ public class GameManager : MonoBehaviour
         {
             GameObject spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
             GameObject enemySpawned = Instantiate(EnemyPrefabs, spawnPoint.transform.position, Quaternion.identity);
-            enemySpawned.GetComponent<EnemyManager>().gameManager = GetComponent<GameManager>();
+            enemySpawned.GetComponent<EnemyManager>().gameManager = this;
             EnemiesAlive++;
+            SpawnedEnemies.Add(enemySpawned);
         }
+    }
+
+    public void WinGame()
+    {
+        RoundNum.text = "";
+        Cursor.lockState = CursorLockMode.None;
+        WinScreen.SetActive(true);
+        RoundsSurvived.text = Round.ToString();
     }
 
     public void EndGame()
     {
-        Time.timeScale = 0;
+        RoundNum.text = "";
         Cursor.lockState = CursorLockMode.None;
         EndScreen.SetActive(true);
         RoundsSurvived.text = Round.ToString();
+
+        DestroyAllEnemies();
+    }
+
+    private void DestroyAllEnemies()
+    {
+        foreach (GameObject enemy in SpawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                Destroy(enemy);
+            }
+        }
+        SpawnedEnemies.Clear();
     }
 
     public void ReplayGame()
@@ -109,7 +135,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void Pause()
+    /*public void Pause()
     {
         PauseMenu.SetActive(true);
         Time.timeScale = 0;
@@ -124,4 +150,5 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         AudioListener.volume = 1;
     }
+    */
 }

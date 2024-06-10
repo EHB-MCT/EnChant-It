@@ -57,7 +57,6 @@ public class Menu : MonoBehaviour
             }
             else if (menuCommandName.Equals("Quit", StringComparison.OrdinalIgnoreCase) && Book.enabled)
             {
-                Debug.Log("this is done");
                Application.Quit();
 
 #if UNITY_EDITOR
