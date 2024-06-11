@@ -9,7 +9,6 @@ public class MainMenuManager : MonoBehaviour
     public string EnchantItSceneName;
     public GameManager GameManager;
 
-    // Check dit later nog
     public static bool SkipTeleportEffect;
 
     public GameObject WinScreen;

@@ -36,11 +36,6 @@ public class EnemyInteraction : MonoBehaviour
 
     void Die()
     {
-        if (_animator != null)
-        {
-            Debug.Log("isDead");
-        }
-
         if (_sphereCollider != null)
         {
             _sphereCollider.enabled = false;

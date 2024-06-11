@@ -4,8 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition : MonoBehaviour
 {
-    public string enchantItSceneName;
-    public static bool skipTeleportEffect; 
+    public string EnchantItSceneName;
+    public static bool SkipTeleportEffect; 
 
     public void UpdateOption(string[] options)
     {
@@ -26,16 +26,15 @@ public class SceneTransition : MonoBehaviour
         string option = options[0];
         if (option.Equals("start", StringComparison.OrdinalIgnoreCase))
         {
-            skipTeleportEffect = true;
-            Debug.Log("debug: " + skipTeleportEffect);
-            SceneManager.LoadScene(enchantItSceneName);
+            SkipTeleportEffect = true;
+            SceneManager.LoadScene(EnchantItSceneName);
         }
         else if (option.Equals("sandbox", StringComparison.OrdinalIgnoreCase))
         {
             GameStateManager.Instance.DesiredChapter = ChapterController.Chapter.Chapter4;
 
-            skipTeleportEffect = true;
-            SceneManager.LoadScene(enchantItSceneName);
+            SkipTeleportEffect = true;
+            SceneManager.LoadScene(EnchantItSceneName);
         }
         else if (option.Equals("quit", StringComparison.OrdinalIgnoreCase))
         {

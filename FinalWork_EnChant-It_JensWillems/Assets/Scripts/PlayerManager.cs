@@ -6,22 +6,21 @@ using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
+    [Header("References & Settings")]
     public float health = 100;
     public TextMeshProUGUI healthNum;
     public GameManager gameManager;
     public GameObject playerCamera;
     public CanvasGroup hurtPanel;
-    private float shakeTime;
-    private float shakeDuration;
-    private Quaternion playerCameraOriginalRotation;
 
-    // Health bar related fields
     public GameObject Bar;
     public bool RecoverHealth;
 
+    private float shakeTime;
+    private float shakeDuration;
+
     void Start()
     {
-        // playerCameraOriginalRotation = playerCamera.transform.localRotation;
         UpdateHealthBar();
     }
 
@@ -36,18 +35,13 @@ public class PlayerManager : MonoBehaviour
             shakeTime += Time.deltaTime;
             CameraShake();
         }
-        /*
-        else if (playerCamera.transform.localRotation != playerCameraOriginalRotation)
-        {
-            playerCamera.transform.localRotation = playerCameraOriginalRotation;
-        }
-        */
+
 
         if (RecoverHealth)
         {
             if (health < 100)
             {
-                health += Time.deltaTime * 5; // Example recovery rate
+                health += Time.deltaTime * 5; 
                 if (health > 100)
                 {
                     health = 100;

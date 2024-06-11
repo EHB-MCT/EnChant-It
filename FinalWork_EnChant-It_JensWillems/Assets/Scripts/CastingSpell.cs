@@ -18,9 +18,6 @@ public class CastingSpell : MonoBehaviour
 
     [Header("Settings")]
     public float DistanceFromCamera = 5f;
-    public int FireManaCost = 20;
-    public int InfernoManaCost = 50;
-    public int HealManaCost = 30;
 
     public bool CastFireSpell = false;
     public bool CastHealSpell = false;
@@ -42,13 +39,11 @@ public class CastingSpell : MonoBehaviour
     {
         if (spellNames.Length > 0)
         {
-            Debug.Log("this is done now");
             string spellName = spellNames[0];
 
             // Fire ball
             if (spellName.Equals("fire", StringComparison.OrdinalIgnoreCase))
             {
-                Debug.Log("casting fire");
                 CastFireSpell = true;
                 //PlayerCharacter.UseMana(FireManaCost);
 

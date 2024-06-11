@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Settings")]
     public int EnemiesAlive = 0;
     public int Round = 0;
     public int MaxRounds = 10;
@@ -26,21 +27,12 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> SpawnedEnemies = new List<GameObject>();
 
-    private void Start()
-    {
-        //roundNum.enabled = false;
-    }
 
     void Update()
     {
         if (StartWave && !IsRoundInProgress)
         {
             StartCoroutine(StartNextRound());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //Pause();
         }
     }
 
@@ -66,7 +58,6 @@ public class GameManager : MonoBehaviour
 
         if (Round > MaxRounds)
         {
-            Debug.Log("you did it");
             WinGame();
         }
 
@@ -79,7 +70,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
             GameObject enemySpawned = Instantiate(EnemyPrefabs, spawnPoint.transform.position, Quaternion.identity);
-            enemySpawned.GetComponent<EnemyManager>().gameManager = this;
+            enemySpawned.GetComponent<EnemyManager>().GameManager = this;
             EnemiesAlive++;
             SpawnedEnemies.Add(enemySpawned);
         }
@@ -87,6 +78,8 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()
     {
+        HealthBar.SetActive(false);
+        RoundNum.enabled = false;
         RoundNum.text = "";
         Cursor.lockState = CursorLockMode.None;
         WinScreen.SetActive(true);
@@ -95,6 +88,8 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        HealthBar.SetActive(false);
+        RoundNum.enabled = false;
         RoundNum.text = "";
         Cursor.lockState = CursorLockMode.None;
         EndScreen.SetActive(true);
@@ -127,6 +122,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         AudioListener.volume = 1;
         BlackScreenAnimator.SetTrigger("FadeIn");
+        HealthBar.SetActive(true);
         Invoke("LoadMainMenuScene", .4f);
     }
 
@@ -134,21 +130,4 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
-
-    /*public void Pause()
-    {
-        PauseMenu.SetActive(true);
-        Time.timeScale = 0;
-        Cursor.lockState = CursorLockMode.None;
-        AudioListener.volume = 0;
-    }
-
-    public void UnPause()
-    {
-        PauseMenu.SetActive(false);
-        Time.timeScale = 1;
-        Cursor.lockState = CursorLockMode.Locked;
-        AudioListener.volume = 1;
-    }
-    */
 }

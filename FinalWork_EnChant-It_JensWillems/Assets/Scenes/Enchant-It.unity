@@ -2853,13 +2853,10 @@ MonoBehaviour:
   CastingSpell: {fileID: 925547993}
   PopUp: {fileID: 331618861}
   AudioClips:
-  - {fileID: 8300000, guid: 802a5066e1b3c604095574ef8fad14e8, type: 3}
-  - {fileID: 8300000, guid: 3aea2cdc9b3606a45b24cecd9ae8c09b, type: 3}
-  - {fileID: 8300000, guid: 2bb20ed431f154644999450a8e5991b8, type: 3}
-  - {fileID: 8300000, guid: 027215b3a80364d4686c7cbd20bdc8f3, type: 3}
-  - {fileID: 8300000, guid: 782abaec054ac52438d81d2ab1db5ae5, type: 3}
-  - {fileID: 8300000, guid: 6575662f29fe06c40bdc80bc3e81d894, type: 3}
-  - {fileID: 8300000, guid: 840e7c7030cbe7743b3087ea73ddfb5a, type: 3}
+  - {fileID: 8300000, guid: 980382c7af7df8a4ea31825328e31b4a, type: 3}
+  - {fileID: 8300000, guid: b2836cd5804797b46adae1dcce4c7c02, type: 3}
+  - {fileID: 8300000, guid: 5736fdb8f586db24dacd06a74b7fda9a, type: 3}
+  - {fileID: 8300000, guid: 27be34dd1ac893644a4c227a8e56acc2, type: 3}
 --- !u!114 &290086630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2878,13 +2875,12 @@ MonoBehaviour:
   CastingSpell: {fileID: 925547993}
   EnemyAnimator: {fileID: 8016193362649422298}
   PopUp: {fileID: 331618861}
+  PlayerManager: {fileID: 1571812037}
   EnemyAnimationName: EnemyAnimation
   AudioClips:
-  - {fileID: 8300000, guid: 782d89e298fef4749a66a12ea17763d8, type: 3}
-  - {fileID: 8300000, guid: 314b6a3826562164b92a6777a28efeb6, type: 3}
-  - {fileID: 8300000, guid: cf704af9a4811b44a944726fc6df3301, type: 3}
-  - {fileID: 8300000, guid: 70ecd4b2aeac6e14f823f13b143eff23, type: 3}
-  - {fileID: 8300000, guid: 85f6f34699349e94da6ba74e1e500e6d, type: 3}
+  - {fileID: 8300000, guid: 8c69d782cfadae4468b5885fbb227528, type: 3}
+  - {fileID: 8300000, guid: fbee000efeba0ff4caa37d5b0cdc9ae0, type: 3}
+  - {fileID: 8300000, guid: 26fe17a39989ca84babb6b9271963a7d, type: 3}
 --- !u!114 &290086631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3053,7 +3049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &331618862
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4019,7 +4015,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 34ecf51bcd3f4424eafda7dafd885bd0, type: 3}
+  m_Sprite: {fileID: 21300014, guid: 7188e9d0ec465034995ea794e337b4bd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6173,7 +6169,7 @@ GameObject:
   - component: {fileID: 822686456}
   - component: {fileID: 822686455}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BookCover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6905,9 +6901,6 @@ MonoBehaviour:
   TeleportEffectParent: {fileID: 1195464370}
   SpawnEffectParent: {fileID: 1195464370}
   DistanceFromCamera: 5
-  FireManaCost: 20
-  InfernoManaCost: 50
-  HealManaCost: 30
   CastFireSpell: 0
   CastHealSpell: 0
 --- !u!1 &933724701
@@ -9418,7 +9411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: Acceleration
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: EnableRotation
@@ -15380,6 +15373,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crosshair
       objectReference: {fileID: 0}
+    - target: {fileID: 6163839274711192679, guid: dd9a5fa738216474eb8c0b7b516a47b2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17879,9 +17876,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc16796cb877cf488d76f7978c0ce40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2134141067}
-  moveWithCamera: 1
-  distanceFromTarget: 0.38
+  Target: {fileID: 478559722}
+  MoveWithCamera: 1
+  DistanceFromTarget: 0.4
 --- !u!114 &7611576170973220887
 MonoBehaviour:
   m_ObjectHideFlags: 0

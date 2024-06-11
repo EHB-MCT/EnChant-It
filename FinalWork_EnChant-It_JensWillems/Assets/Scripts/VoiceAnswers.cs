@@ -4,11 +4,11 @@ using UnityEngine;
 public class VoiceAnswers : MonoBehaviour
 {
     public bool Answer = false;
-    public bool CanUpdateAnswer = false; // Add this flag
+    public bool CanUpdateAnswer = false; 
 
     public void UpdateAnswer(string[] answerCommands)
     {
-        if (!CanUpdateAnswer) return; // Check the flag before proceeding
+        if (!CanUpdateAnswer) return; 
 
         if (answerCommands.Length != 0)
         {
@@ -24,7 +24,7 @@ public class VoiceAnswers : MonoBehaviour
 
     public void MenuCommands(string[] answerCommands)
     {
-        if (!CanUpdateAnswer) return; // Check the flag before proceeding
+        if (!CanUpdateAnswer) return; 
 
         if (answerCommands.Length > 0)
         {

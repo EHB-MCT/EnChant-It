@@ -9,7 +9,7 @@ public class Menu : MonoBehaviour
     public WorldSpaceCanvasController WorldSpaceCanvasController;
     public event Action OnMenuOpenedFirstTime;
 
-    private bool isMenuOpenedForFirstTime = false;
+    private bool _isMenuOpenedForFirstTime = false;
 
     private void Start()
     {
@@ -38,10 +38,10 @@ public class Menu : MonoBehaviour
             if (menuCommandName.Equals("book", StringComparison.OrdinalIgnoreCase))
             {
                 Spellbook.SetActive(true);
-                WorldSpaceCanvasController.distanceFromTarget = 0.4f;
-                WorldSpaceCanvasController.moveWithCamera = false;
+                WorldSpaceCanvasController.DistanceFromTarget = 0.4f;
+                WorldSpaceCanvasController.MoveWithCamera = false;
 
-                if (isMenuOpenedForFirstTime)
+                if (_isMenuOpenedForFirstTime)
                 {
                     OnMenuOpenedFirstTime?.Invoke();
                 }
@@ -49,7 +49,7 @@ public class Menu : MonoBehaviour
             if (menuCommandName.Equals("close", StringComparison.OrdinalIgnoreCase) )
             {
                 Spellbook.SetActive(false);
-                WorldSpaceCanvasController.moveWithCamera = true;
+                WorldSpaceCanvasController.MoveWithCamera = true;
             }
             else if (menuCommandName.Equals("Quit", StringComparison.OrdinalIgnoreCase) && Spellbook == true)
             {
@@ -65,6 +65,6 @@ public class Menu : MonoBehaviour
     }
     public void EnableFirstTimeMenuOpening()
     {
-        isMenuOpenedForFirstTime = true;
+        _isMenuOpenedForFirstTime = true;
     }
 }

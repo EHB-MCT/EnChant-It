@@ -4,31 +4,32 @@ using UnityEngine;
 
 public class HealSpell : MonoBehaviour
 {
-    public int healAmount = 20;
-    public float healInterval = 1f;
-    public float duration = 6.0f;
+    [Header("Settings")]
+    public int HealAmount = 20;
+    public float HealInterval = 1f;
+    public float Duration = 6.0f;
 
-    private float healTimer;
-    private float durationTimer;
+    private float _healTimer;
+    private float _durationTimer;
 
     void Start()
     {
-        healTimer = healInterval;
-        durationTimer = duration;
+        _healTimer = HealInterval;
+        _durationTimer = Duration;
     }
 
     void Update()
     {
-        durationTimer -= Time.deltaTime;
+        _durationTimer -= Time.deltaTime;
 
-        if (durationTimer > 0)
+        if (_durationTimer > 0)
         {
-            healTimer -= Time.deltaTime;
+            _healTimer -= Time.deltaTime;
 
-            if (healTimer <= 0)
+            if (_healTimer <= 0)
             {
                 HealPlayer();
-                healTimer = healInterval;
+                _healTimer = HealInterval;
             }
         }
         else
@@ -42,7 +43,7 @@ public class HealSpell : MonoBehaviour
         PlayerManager playerManager = FindObjectOfType<PlayerManager>();
         if (playerManager != null)
         {
-            playerManager.Heal(healAmount);
+            playerManager.Heal(HealAmount);
         }
     }
 }

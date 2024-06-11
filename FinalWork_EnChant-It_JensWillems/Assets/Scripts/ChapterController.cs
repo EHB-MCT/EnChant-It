@@ -22,7 +22,7 @@ public class ChapterController : MonoBehaviour
     private void Start()
     {
         CurrentChapter = GameStateManager.Instance.DesiredChapter;
-        _skip = SceneTransition.skipTeleportEffect;
+        _skip = SceneTransition.SkipTeleportEffect;
         ChangeChapter(CurrentChapter);
     }
 

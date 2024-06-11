@@ -70,11 +70,11 @@ public class Chapter2Voice : MonoBehaviour
             if (_currentClipIndex == 0 && !VoiceAnswers.Answer)
             {
             }
-            if (_currentClipIndex == 2 && !CastingSpell.CastFireSpell)
+            if (_currentClipIndex == 1 && !CastingSpell.CastFireSpell)
             {
                 yield return new WaitUntil(() => CastingSpell.CastFireSpell);
             }
-            if (_currentClipIndex == 4 && !VoiceAnswers.Answer)
+            if (_currentClipIndex == 3 && !VoiceAnswers.Answer)
             {
                 PopUp.SetActive(true);
                 VoiceAnswers.CanUpdateAnswer = true;
@@ -84,7 +84,7 @@ public class Chapter2Voice : MonoBehaviour
                 PopUp.SetActive(false);
             }
 
-            if (_currentClipIndex == 6 && !VoiceAnswers.Answer)
+            if (_currentClipIndex == 4 && !VoiceAnswers.Answer)
             {
                 VoiceAnswers.CanUpdateAnswer = true;
                 PopUp.SetActive(true);

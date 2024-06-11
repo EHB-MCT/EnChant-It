@@ -10,6 +10,7 @@ public class PositionManager : MonoBehaviour
     public List<Transform> Chapter2Positions = new List<Transform>();
     public List<Transform> Chapter3Positions = new List<Transform>();
     public List<Transform> Chapter4Positions = new List<Transform>();
+
     [Header("References")]
     public GameObject PlayerGameObject;
     public GameObject TeleportEffectPrefab;
@@ -26,7 +27,7 @@ public class PositionManager : MonoBehaviour
 
     public void Start()
     {
-        _skip = SceneTransition.skipTeleportEffect;
+        _skip = SceneTransition.SkipTeleportEffect;
     }
     public void TeleportToChapter(ChapterController.Chapter targetChapter)
     {
@@ -111,8 +112,6 @@ public class PositionManager : MonoBehaviour
 
         if (SpawnEffectPrefab != null)
         {
-            Debug.Log("Playing spawn effects.");
-
             GameObject spawnEffectInstance = Instantiate(SpawnEffectPrefab, TeleportEffectParent.transform.position, Quaternion.identity, SpawnEffectParent);
             ParticleSystem[] spawnEffects = spawnEffectInstance.GetComponentsInChildren<ParticleSystem>();
             if (spawnEffects.Length > 0)

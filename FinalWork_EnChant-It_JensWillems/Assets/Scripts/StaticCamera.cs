@@ -1,15 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StaticCamera : MonoBehaviour
 {
     public Canvas canvas;
-
-    void Start()
-    {
-     
-    }
 
     public void CallingCanvas()
     {

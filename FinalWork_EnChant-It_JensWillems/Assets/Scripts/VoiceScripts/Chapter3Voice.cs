@@ -12,6 +12,7 @@ public class Chapter3Voice : MonoBehaviour
     public CastingSpell CastingSpell;
     public Animator EnemyAnimator;
     public GameObject PopUp;
+    public PlayerManager PlayerManager;
     public string EnemyAnimationName = "EnemyAnimation";
 
     [Header("Audio clips")]
@@ -71,20 +72,14 @@ public class Chapter3Voice : MonoBehaviour
 
             if (_currentClipIndex == 0 && !VoiceAnswers.Answer)
             {
+                PlayerManager.Hit(50);
             }
-            if (_currentClipIndex == 1) 
-            {
-                EnemyAnimator.SetTrigger("Attack");
-                yield return new WaitUntil(() => IsAnimationFinished());
-                EnemyAnimator.SetTrigger("Idle");
-
-            }
-            if (_currentClipIndex == 2 && !CastingSpell.CastHealSpell)
+            if (_currentClipIndex == 1 && !CastingSpell.CastHealSpell)
             {
                 yield return new WaitUntil(() => CastingSpell.CastHealSpell);
             }
 
-            if (_currentClipIndex == 4 && !VoiceAnswers.Answer)
+            if (_currentClipIndex == 2 && !VoiceAnswers.Answer)
             {
                 PopUp.SetActive(true);
                 VoiceAnswers.CanUpdateAnswer = true;

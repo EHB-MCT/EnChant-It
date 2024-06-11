@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class WorldSpaceCanvasController : MonoBehaviour
 {
-    public Transform target; 
-    public bool moveWithCamera = true; 
-    public float distanceFromTarget = 0.4f; 
+    public Transform Target; 
+    public bool MoveWithCamera = true; 
+    public float DistanceFromTarget = 0.4f; 
 
     void Update()
     {
-        if (moveWithCamera)
+        if (MoveWithCamera)
         {
-            distanceFromTarget = 0.8f;
+            DistanceFromTarget = 0.8f;
 
-            transform.position = target.position + target.forward * distanceFromTarget;
-            transform.rotation = Quaternion.LookRotation(target.forward, target.up);
+            transform.position = Target.position + Target.forward * DistanceFromTarget;
+            transform.rotation = Quaternion.LookRotation(Target.forward, Target.up);
         }
     }
 }

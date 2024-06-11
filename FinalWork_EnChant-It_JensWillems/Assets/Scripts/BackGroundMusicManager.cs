@@ -9,7 +9,7 @@ public class BackGroundMusicManager : MonoBehaviour
     public AudioClip CombatMusic;
     public GameManager GameManager;
 
-    private bool isCombatMusicPlaying = false;
+    private bool _isCombatMusicPlaying = false;
 
     void Start()
     {
@@ -20,12 +20,12 @@ public class BackGroundMusicManager : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.StartWave && !isCombatMusicPlaying)
+        if (GameManager.StartWave && !_isCombatMusicPlaying)
         {
             AudioSource.clip = CombatMusic;
             AudioSource.loop = true; 
             AudioSource.Play();
-            isCombatMusicPlaying = true;
+            _isCombatMusicPlaying = true;
         }
     }
 }

@@ -4,137 +4,100 @@ using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject player;
-    public Animator enemyAnimator;
-    public float damage = 20f;
-    public float health = 100;
-    public GameManager gameManager;
-    public Slider slider;
+    [Header("References")]
+    public GameObject Player;
+    public Animator EnemyAnimator;
+    public GameManager GameManager;
+    public Slider HealthBar;
 
-    public bool playerInReach;
-    private float attackDelayTimer;
-    public float attackAnimStartDelay;
-    public float delayBetweenAttacks;
+    [Header("Settings")]
+    public float Damage = 20f;
+    public float Health = 100;
+    public bool PlayerInReach;
+    private float AttackDelayTimer;
+    public float AttackAnimStartDelay;
+    public float DelayBetweenAttacks;
 
-    public AudioSource audioSource;
-    public AudioClip[] zombieSounds;
-    private bool hasStartedMoving = false;
+    public AudioSource AudioSource;
+    public AudioClip[] ZombieSounds;
+
+    private bool _hasStartedMoving = false;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        slider.maxValue = health;
-        slider.value = health;
-        playerInReach = false;
+        AudioSource = GetComponent<AudioSource>();
+        Player = GameObject.FindGameObjectWithTag("Player");
+        HealthBar.maxValue = Health;
+        HealthBar.value = Health;
+        PlayerInReach = false;
     }
 
     void Update()
     {
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        Debug.Log(agent.remainingDistance);
 
-        if (!hasStartedMoving)
+        if (!_hasStartedMoving)
         {
             if (agent.hasPath && agent.velocity.sqrMagnitude > 0f)
             {
-                hasStartedMoving = true;
+                _hasStartedMoving = true;
             }
         }
         else
         {
             if (agent.remainingDistance <= agent.stoppingDistance)
             {
-                playerInReach = true;
+                PlayerInReach = true;
             }
         }
 
-        if (!audioSource.isPlaying)
+        if (!AudioSource.isPlaying)
         {
-            audioSource.clip = zombieSounds[Random.Range(0, zombieSounds.Length)];
-            audioSource.Play();
+            AudioSource.clip = ZombieSounds[Random.Range(0, ZombieSounds.Length)];
+            AudioSource.Play();
         }
 
-        slider.transform.LookAt(player.transform);
-        agent.destination = player.transform.position;
+        HealthBar.transform.LookAt(Player.transform);
+        agent.destination = Player.transform.position;
 
         if (agent.velocity.magnitude > 1)
         {
-            enemyAnimator.SetBool("isRunning", true);
+            EnemyAnimator.SetBool("isRunning", true);
         }
         else
         {
-            enemyAnimator.SetBool("isRunning", false);
+            EnemyAnimator.SetBool("isRunning", false);
         }
 
-        if (playerInReach)
+        if (PlayerInReach)
         {
-            attackDelayTimer += Time.deltaTime;
+            AttackDelayTimer += Time.deltaTime;
         }
 
-        if (attackDelayTimer >= delayBetweenAttacks - attackAnimStartDelay && attackDelayTimer <= delayBetweenAttacks && playerInReach)
+        if (AttackDelayTimer >= DelayBetweenAttacks - AttackAnimStartDelay && AttackDelayTimer <= DelayBetweenAttacks && PlayerInReach)
         {
-            enemyAnimator.SetTrigger("isAttacking");
+            EnemyAnimator.SetTrigger("isAttacking");
         }
 
-        if (attackDelayTimer >= delayBetweenAttacks && playerInReach)
+        if (AttackDelayTimer >= DelayBetweenAttacks && PlayerInReach)
         {
-            player.GetComponent<PlayerManager>().Hit(damage);
-            attackDelayTimer = 0;
+            Player.GetComponent<PlayerManager>().Hit(Damage);
+            AttackDelayTimer = 0;
         }
     }
-    /*
-private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject == player)
-        {
-            playerInReach = true;
-        }
-    }
-    */
+
     public void Hit(float damage)
     {
-        health -= damage;
-        slider.value = health;
-        if (health == 0)
+        Health -= damage;
+        HealthBar.value = Health;
+        if (Health == 0)
         {
-            enemyAnimator.SetTrigger("isDead");
+            EnemyAnimator.SetTrigger("isDead");
             Destroy(gameObject, 10f);
             Destroy(GetComponent<NavMeshAgent>());
             Destroy(GetComponent<EnemyManager>());
             Destroy(GetComponent<BoxCollider>());
-            Debug.Log("killed one");
-            gameManager.EnemiesAlive--;
-
+            GameManager.EnemiesAlive--;
         }
     }
-    /*
-    private void OnCollisionStay(Collision collision)
-    {
-        if (playerInReach)
-        {
-            attackDelayTimer += Time.deltaTime;
-        }
-
-        if (attackDelayTimer >= delayBetweenAttacks - attackAnimStartDelay && attackDelayTimer <= delayBetweenAttacks && playerInReach)
-        {
-            enemyAnimator.SetTrigger("isAttacking");
-        }
-
-        if (attackDelayTimer >= delayBetweenAttacks && playerInReach)
-        {
-            player.GetComponent<PlayerManager>().Hit(damage);
-            attackDelayTimer = 0;
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject == player)
-        {
-            playerInReach = false;
-            attackDelayTimer = 0;
-        }
-    }
-    */
 }

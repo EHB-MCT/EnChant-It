@@ -7,13 +7,13 @@ public class FlameThrower : MonoBehaviour
     [Header("Settings")]
     public float DamageAmount = 1;
 
-    private ParticleSystem flameThrowerParticles;
-    private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
+    private ParticleSystem _flameThrowerParticles;
+    private List<ParticleCollisionEvent> _collisionEvents = new List<ParticleCollisionEvent>();
 
     private void Start()
     {
-        flameThrowerParticles = GetComponent<ParticleSystem>();
-        if (flameThrowerParticles == null)
+        _flameThrowerParticles = GetComponent<ParticleSystem>();
+        if (_flameThrowerParticles == null)
         {
             Debug.LogError("ParticleSystem component not found on FlameThrower.");
         }
@@ -21,16 +21,13 @@ public class FlameThrower : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        int numCollisionEvents = flameThrowerParticles.GetCollisionEvents(other, collisionEvents);
-        Debug.Log($"Number of collision events: {numCollisionEvents}");
+        int numCollisionEvents = _flameThrowerParticles.GetCollisionEvents(other, _collisionEvents);
 
         for (int i = 0; i < numCollisionEvents; i++)
         {
-            Debug.Log($"Collision with: {other.name}");
 
             if (other.CompareTag("Enemy"))
             {
-                Debug.Log("Enemy hit detected.");
                 DealDamage(other);
             }
             else
@@ -45,7 +42,6 @@ public class FlameThrower : MonoBehaviour
         EnemyManager enemyManager = enemy.GetComponent<EnemyManager>();
         if (enemyManager != null)
         {
-            Debug.Log("Dealing damage to enemy.");
             enemyManager.Hit(DamageAmount);
         }
         else
@@ -56,8 +52,7 @@ public class FlameThrower : MonoBehaviour
 
     private void Update()
     {
-        // Check if the particle system has finished playing and destroy the GameObject if it has
-        if (flameThrowerParticles && !flameThrowerParticles.IsAlive())
+        if (_flameThrowerParticles && !_flameThrowerParticles.IsAlive())
         {
             Destroy(gameObject);
         }

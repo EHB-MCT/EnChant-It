@@ -2,26 +2,28 @@ using UnityEngine;
 
 public class FireElementalAnimation : MonoBehaviour
 {
-    public float minBobSpeed = 0.5f;
-    public float maxBobSpeed = 1.5f;
-    public float minBobHeight = 0.1f;
-    public float maxBobHeight = 0.5f;
-    public float jumpHeight = 3f;
-    public float jumpDuration = 1.5f;
+    [Header("Settings")]
+    public float MinBobSpeed = 0.5f;
+    public float MmaxBobSpeed = 1.5f;
+    public float MinBobHeight = 0.1f;
+    public float MaxBobHeight = 0.5f;
+    public float JumpHeight = 3f;
+    public float JjumpDuration = 1.5f;
 
+    [Header("References")]
     public Transform Player;
 
-    private float originalY;
-    private float bobSpeed;
-    private float bobHeight;
-    private bool isJumping = false;
-    private float jumpTimer = 0f;
+    private float _originalY;
+    private float _speed;
+    private float _heigth;
+    private bool _isJumping = false;
+    private float _jumpTimer = 0f;
 
     private void Start()
     {
-        originalY = transform.position.y;
-        bobSpeed = Random.Range(minBobSpeed, maxBobSpeed);
-        bobHeight = Random.Range(minBobHeight, maxBobHeight);
+        _originalY = transform.position.y;
+        _speed = Random.Range(MinBobSpeed, MmaxBobSpeed);
+        _heigth = Random.Range(MinBobHeight, MaxBobHeight);
     }
 
     private void Update()
@@ -30,22 +32,22 @@ public class FireElementalAnimation : MonoBehaviour
         {
             transform.LookAt(Player);
         }
-        if (!isJumping)
+        if (!_isJumping)
         {
-            float yOffset = Mathf.Sin(Time.time * bobSpeed) * bobHeight;
-            transform.position = new Vector3(transform.position.x, originalY + yOffset, transform.position.z);
+            float yOffset = Mathf.Sin(Time.time * _speed) * _heigth;
+            transform.position = new Vector3(transform.position.x, _originalY + yOffset, transform.position.z);
         }
         else
         {
-            jumpTimer += Time.deltaTime;
-            float normalizedTime = jumpTimer / jumpDuration;
+            _jumpTimer += Time.deltaTime;
+            float normalizedTime = _jumpTimer / JjumpDuration;
             float jumpCurveValue = Mathf.Sin(normalizedTime * Mathf.PI);
-            float yOffset = jumpCurveValue * jumpHeight;
-            transform.position = new Vector3(transform.position.x, originalY + yOffset, transform.position.z);
+            float yOffset = jumpCurveValue * JumpHeight;
+            transform.position = new Vector3(transform.position.x, _originalY + yOffset, transform.position.z);
             if (normalizedTime >= 1f)
             {
-                isJumping = false;
-                jumpTimer = 0f;
+                _isJumping = false;
+                _jumpTimer = 0f;
             }
         }
 
@@ -57,6 +59,6 @@ public class FireElementalAnimation : MonoBehaviour
 
     private void Jump()
     {
-        isJumping = true;
+        _isJumping = true;
     }
 }
