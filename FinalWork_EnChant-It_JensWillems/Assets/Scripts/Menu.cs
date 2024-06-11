@@ -6,12 +6,10 @@ using UnityEngine;
 public class Menu : MonoBehaviour
 {
     public GameObject Spellbook;
-    public Book Book;
-    public AutoFlip AutoFlip;
-    private bool isMenuOpenedForFirstTime = false;
-
-    public event Action OnMenuOpenedFirstTime;
     public WorldSpaceCanvasController WorldSpaceCanvasController;
+    public event Action OnMenuOpenedFirstTime;
+
+    private bool isMenuOpenedForFirstTime = false;
 
     private void Start()
     {
@@ -47,15 +45,13 @@ public class Menu : MonoBehaviour
                 {
                     OnMenuOpenedFirstTime?.Invoke();
                 }
-                Debug.Log("opening book");
-
             } 
             if (menuCommandName.Equals("close", StringComparison.OrdinalIgnoreCase) )
             {
                 Spellbook.SetActive(false);
                 WorldSpaceCanvasController.moveWithCamera = true;
             }
-            else if (menuCommandName.Equals("Quit", StringComparison.OrdinalIgnoreCase) && Book.enabled)
+            else if (menuCommandName.Equals("Quit", StringComparison.OrdinalIgnoreCase) && Spellbook == true)
             {
                Application.Quit();
 

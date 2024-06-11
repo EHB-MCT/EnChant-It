@@ -1956,8 +1956,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3824964249598519825, guid: ad6edb8450bc9bc498655561df000f20, type: 3}
+      propertyPath: m_Name
+      value: DamageDone
+      objectReference: {fileID: 0}
+    - target: {fileID: 3824964249598519825, guid: ad6edb8450bc9bc498655561df000f20, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3824964249598519825, guid: ad6edb8450bc9bc498655561df000f20, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4244553883271703661, guid: ad6edb8450bc9bc498655561df000f20, type: 3}
       propertyPath: m_Name
@@ -1966,6 +1974,10 @@ PrefabInstance:
     - target: {fileID: 4244553883271703661, guid: ad6edb8450bc9bc498655561df000f20, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944519588681597610, guid: ad6edb8450bc9bc498655561df000f20, type: 3}
+      propertyPath: m_Name
+      value: GreenHealth
       objectReference: {fileID: 0}
     - target: {fileID: 4944519588681597610, guid: ad6edb8450bc9bc498655561df000f20, type: 3}
       propertyPath: m_Layer

@@ -12,36 +12,33 @@ public class ChapterController : MonoBehaviour
     }
 
     [Header("References")]
-    public Chapter currentChapter = Chapter.Chapter1;
+    public Chapter CurrentChapter = Chapter.Chapter1;
     public PositionManager PositionManager;
     public event Action<Chapter> OnChapterChanged;
-    private bool _skip;
 
+    private bool _skip;
     private bool initialized = false;
 
     private void Start()
     {
-        currentChapter = GameStateManager.Instance.DesiredChapter;
+        CurrentChapter = GameStateManager.Instance.DesiredChapter;
         _skip = SceneTransition.skipTeleportEffect;
-        ChangeChapter(currentChapter);
+        ChangeChapter(CurrentChapter);
     }
 
     public void ChangeChapter(Chapter newChapter)
     {
-        Debug.Log("skip: " + _skip);
         if (!initialized && _skip)
         {
             initialized = true;
             _skip = false;
-            Debug.Log("skip: " + _skip);
             TeleportDirectlyToChapter(newChapter);
         }
         else
         {
-            Debug.Log("skip: " + _skip);
-            currentChapter = newChapter;
-            PositionManager.TeleportToChapter(currentChapter);
-            OnChapterChanged?.Invoke(currentChapter);
+            CurrentChapter = newChapter;
+            PositionManager.TeleportToChapter(CurrentChapter);
+            OnChapterChanged?.Invoke(CurrentChapter);
         }
 
         if (PositionManager.PlayerGameObject != null)
@@ -56,9 +53,9 @@ public class ChapterController : MonoBehaviour
 
     private void TeleportDirectlyToChapter(Chapter chapter)
     {
-        currentChapter = chapter;
+        CurrentChapter = chapter;
         PositionManager.PlayerGameObject.transform.position = PositionManager.GetPositionForChapter(chapter).position;
         PositionManager.PlayerGameObject.transform.rotation = PositionManager.GetPositionForChapter(chapter).rotation;
-        OnChapterChanged?.Invoke(currentChapter);
+        OnChapterChanged?.Invoke(CurrentChapter);
     }
 }

@@ -8,28 +8,25 @@ public class Chapter1Voice : MonoBehaviour
     public Menu Menu;
     public VoiceAnswers VoiceAnswers;
     public PositionManager PositionManager;
-    public ChapterController chapterController;
-
-    //public Slider slider; 
-    public GameObject sliderObject; 
+    public ChapterController ChapterController;
+    public GameObject PopUp; 
 
     [Header("Audio clips")]
-    public AudioClip[] audioClips;
+    public AudioClip[] AudioClips;
 
-    private AudioSource audioSource;
-    private int currentClipIndex = 0;
-    private bool menuOpenedFirstTime = false;
+    private AudioSource _audioSource;
+    private int _currentClipIndex = 0;
+    private bool _menuOpenedFirstTime = false;
 
     private void Start()
     {
-        //sliderObject.SetActive(false);
-        audioSource = GetComponent<AudioSource>();
+        PopUp.SetActive(false);
+        _audioSource = GetComponent<AudioSource>();
 
-        // Subscribe to the OnMenuOpenedFirstTime event
         Menu.OnMenuOpenedFirstTime += HandleMenuOpenedFirstTime;
 
-        // Only start playing dialogue if the player is in chapter 1
-        if (chapterController.currentChapter == ChapterController.Chapter.Chapter1)
+
+        if (ChapterController.CurrentChapter == ChapterController.Chapter.Chapter1)
         {
             StartCoroutine(PlayDialogue());
         }
@@ -37,40 +34,41 @@ public class Chapter1Voice : MonoBehaviour
 
     private void HandleMenuOpenedFirstTime()
     {
-        menuOpenedFirstTime = true;
+        _menuOpenedFirstTime = true;
     }
 
     private IEnumerator PlayDialogue()
     {
-        while (currentClipIndex < audioClips.Length)
+        while (_currentClipIndex < AudioClips.Length)
         {
-            audioSource.clip = audioClips[currentClipIndex];
-            audioSource.Play();
+            _audioSource.clip = AudioClips[_currentClipIndex];
+            _audioSource.Play();
 
-            yield return new WaitForSeconds(audioClips[currentClipIndex].length);
+            yield return new WaitForSeconds(AudioClips[_currentClipIndex].length);
 
-            if (currentClipIndex == 1 && !menuOpenedFirstTime)
+            if (_currentClipIndex == 1 && !_menuOpenedFirstTime)
             {
                 Menu.EnableFirstTimeMenuOpening();
-                yield return new WaitUntil(() => menuOpenedFirstTime);
+                yield return new WaitUntil(() => _menuOpenedFirstTime);
             }
 
-            if (currentClipIndex == 3)
+            if (_currentClipIndex == 3)
             {
                 VoiceAnswers.CanUpdateAnswer = true;
-                ShowSlider();
+                PopUp.SetActive(true);
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
                 VoiceAnswers.Answer = false;
-                VoiceAnswers.CanUpdateAnswer = false; // Reset the flag
+                VoiceAnswers.CanUpdateAnswer = false;
+                PopUp.SetActive(false);
             }
 
-            currentClipIndex++;
+            _currentClipIndex++;
         }
 
-        if (chapterController.currentChapter == ChapterController.Chapter.Chapter1)
+        if (ChapterController.CurrentChapter == ChapterController.Chapter.Chapter1)
         {
-            ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)chapterController.currentChapter + 1);
-            chapterController.ChangeChapter(nextChapter);
+            ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)ChapterController.CurrentChapter + 1);
+            ChapterController.ChangeChapter(nextChapter);
         }
         else
         {
@@ -80,35 +78,9 @@ public class Chapter1Voice : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Unsubscribe from the event to avoid memory leaks
         if (Menu != null)
         {
             Menu.OnMenuOpenedFirstTime -= HandleMenuOpenedFirstTime;
         }
     }
-
-
-    public void ShowSlider()
-    {
-       //sliderObject.SetActive(true);
-        //slider.value = 0;
-        //StartCoroutine(IncreaseSliderValue());
-    }
-
-    /*
-    private IEnumerator IncreaseSliderValue()
-    {
-        float elapsedTime = 0f;
-        float duration = 10f;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            slider.value = Mathf.Lerp(0, 1, elapsedTime / duration);
-            yield return null;
-        }
-        sliderObject.SetActive(false);
-        slider.value = 0;
-    }
-    */
 }

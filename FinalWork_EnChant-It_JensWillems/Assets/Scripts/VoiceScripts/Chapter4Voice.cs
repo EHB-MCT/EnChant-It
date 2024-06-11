@@ -5,25 +5,26 @@ public class Chapter4Voice : MonoBehaviour
 {
     [Header("References")]
     public PositionManager PositionManager;
-    public ChapterController chapterController;
+    public ChapterController ChapterController;
     public VoiceAnswers VoiceAnswers;
     public GameManager GameManager;
+    public GameObject PopUp;
 
     [Header("Audio clips")]
-    public AudioClip[] audioClips;
+    public AudioClip[] AudioClips;
 
-    private AudioSource audioSource;
-    private int currentClipIndex = 0;
+    private AudioSource _audioSource;
+    private int _currentClipIndex = 0;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
 
-        chapterController.OnChapterChanged += HandleChapterChanged;
+        ChapterController.OnChapterChanged += HandleChapterChanged;
 
         PositionManager.OnSpawnEffectsCompleted += HandleSpawnEffectsCompleted;
 
-        if (chapterController.currentChapter == ChapterController.Chapter.Chapter4)
+        if (ChapterController.CurrentChapter == ChapterController.Chapter.Chapter4)
         {
             StartCoroutine(PlayDialogue());
         }
@@ -31,7 +32,7 @@ public class Chapter4Voice : MonoBehaviour
 
     private void OnDestroy()
     {
-        chapterController.OnChapterChanged -= HandleChapterChanged;
+        ChapterController.OnChapterChanged -= HandleChapterChanged;
         PositionManager.OnSpawnEffectsCompleted -= HandleSpawnEffectsCompleted;
     }
 
@@ -39,7 +40,7 @@ public class Chapter4Voice : MonoBehaviour
     {
         if (newChapter == ChapterController.Chapter.Chapter4)
         {
-            if (PositionManager.transitioningBetweenChapters)
+            if (PositionManager._transitioningBetweenChapters)
             {
 
             }
@@ -52,7 +53,7 @@ public class Chapter4Voice : MonoBehaviour
 
     private void HandleSpawnEffectsCompleted()
     {
-        if (chapterController.currentChapter == ChapterController.Chapter.Chapter4)
+        if (ChapterController.CurrentChapter == ChapterController.Chapter.Chapter4)
         {
             StartCoroutine(PlayDialogue());
         }
@@ -60,21 +61,23 @@ public class Chapter4Voice : MonoBehaviour
 
     private IEnumerator PlayDialogue()
     {
-        while (currentClipIndex < audioClips.Length)
+        while (_currentClipIndex < AudioClips.Length)
         {
-            audioSource.clip = audioClips[currentClipIndex];
-            audioSource.Play();
+            _audioSource.clip = AudioClips[_currentClipIndex];
+            _audioSource.Play();
 
-            yield return new WaitForSeconds(audioClips[currentClipIndex].length);
+            yield return new WaitForSeconds(AudioClips[_currentClipIndex].length);
 
-            if (currentClipIndex == 0 && !VoiceAnswers.Answer)
+            if (_currentClipIndex == 0 && !VoiceAnswers.Answer)
             {
+                PopUp.SetActive(true);
                 VoiceAnswers.CanUpdateAnswer = true;
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
                 VoiceAnswers.Answer = false;
-                VoiceAnswers.CanUpdateAnswer = false; 
+                VoiceAnswers.CanUpdateAnswer = false;
+                PopUp.SetActive(false);
             }
-            currentClipIndex++;
+            _currentClipIndex++;
         }
         GameManager.StartWave = true;
 

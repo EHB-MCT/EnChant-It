@@ -7,26 +7,27 @@ public class Chapter3Voice : MonoBehaviour
 {
     [Header("References")]
     public PositionManager PositionManager;
-    public ChapterController chapterController;
+    public ChapterController ChapterController;
     public VoiceAnswers VoiceAnswers;
     public CastingSpell CastingSpell;
-    public Animator enemyAnimator; // Reference to the enemy's Animator component
-    public string enemyAnimationName = "EnemyAnimation"; // Name of the enemy animation
+    public Animator EnemyAnimator;
+    public GameObject PopUp;
+    public string EnemyAnimationName = "EnemyAnimation";
 
     [Header("Audio clips")]
-    public AudioClip[] audioClips;
+    public AudioClip[] AudioClips;
 
-    private AudioSource audioSource;
-    private int currentClipIndex = 0;
+    private AudioSource _audioSource;
+    private int _currentClipIndex = 0;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
 
-        chapterController.OnChapterChanged += HandleChapterChanged;
+        ChapterController.OnChapterChanged += HandleChapterChanged;
         PositionManager.OnSpawnEffectsCompleted += HandleSpawnEffectsCompleted;
 
-        if (chapterController.currentChapter == ChapterController.Chapter.Chapter3)
+        if (ChapterController.CurrentChapter == ChapterController.Chapter.Chapter3)
         {
             StartCoroutine(PlayDialogue());
         }
@@ -34,7 +35,7 @@ public class Chapter3Voice : MonoBehaviour
 
     private void OnDestroy()
     {
-        chapterController.OnChapterChanged -= HandleChapterChanged;
+        ChapterController.OnChapterChanged -= HandleChapterChanged;
         PositionManager.OnSpawnEffectsCompleted -= HandleSpawnEffectsCompleted;
     }
 
@@ -42,9 +43,8 @@ public class Chapter3Voice : MonoBehaviour
     {
         if (newChapter == ChapterController.Chapter.Chapter3)
         {
-            if (PositionManager.transitioningBetweenChapters)
+            if (PositionManager._transitioningBetweenChapters)
             {
-                // Additional logic if needed during transitions
             }
             else
             {
@@ -55,7 +55,7 @@ public class Chapter3Voice : MonoBehaviour
 
     private void HandleSpawnEffectsCompleted()
     {
-        if (chapterController.currentChapter == ChapterController.Chapter.Chapter3)
+        if (ChapterController.CurrentChapter == ChapterController.Chapter.Chapter3)
         {
             StartCoroutine(PlayDialogue());
         }
@@ -63,46 +63,46 @@ public class Chapter3Voice : MonoBehaviour
 
     private IEnumerator PlayDialogue()
     {
-        while (currentClipIndex < audioClips.Length)
+        while (_currentClipIndex < AudioClips.Length)
         {
-            audioSource.clip = audioClips[currentClipIndex];
-            audioSource.Play();
-            yield return new WaitForSeconds(audioClips[currentClipIndex].length);
+            _audioSource.clip = AudioClips[_currentClipIndex];
+            _audioSource.Play();
+            yield return new WaitForSeconds(AudioClips[_currentClipIndex].length);
 
-            if (currentClipIndex == 0 && !VoiceAnswers.Answer)
+            if (_currentClipIndex == 0 && !VoiceAnswers.Answer)
             {
-                // Uncomment and implement this if needed
-                // yield return new WaitUntil(() => VoiceAnswers.Answer);
             }
-            if (currentClipIndex == 1) 
+            if (_currentClipIndex == 1) 
             {
-                enemyAnimator.SetTrigger("Attack");
+                EnemyAnimator.SetTrigger("Attack");
                 yield return new WaitUntil(() => IsAnimationFinished());
-                enemyAnimator.SetTrigger("Idle");
+                EnemyAnimator.SetTrigger("Idle");
 
             }
-            if (currentClipIndex == 2 && !CastingSpell.CastHealSpell)
+            if (_currentClipIndex == 2 && !CastingSpell.CastHealSpell)
             {
                 yield return new WaitUntil(() => CastingSpell.CastHealSpell);
             }
 
-            if (currentClipIndex == 5 && !VoiceAnswers.Answer)
+            if (_currentClipIndex == 4 && !VoiceAnswers.Answer)
             {
+                PopUp.SetActive(true);
                 VoiceAnswers.CanUpdateAnswer = true;
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
                 VoiceAnswers.Answer = false;
-                VoiceAnswers.CanUpdateAnswer = false; // Reset the flag
+                VoiceAnswers.CanUpdateAnswer = false;
+                PopUp.SetActive(false);
             }
 
        
 
-            currentClipIndex++;
+            _currentClipIndex++;
         }
 
-        if (chapterController.currentChapter == ChapterController.Chapter.Chapter3)
+        if (ChapterController.CurrentChapter == ChapterController.Chapter.Chapter3)
         {
-            ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)chapterController.currentChapter + 1);
-            chapterController.ChangeChapter(nextChapter);
+            ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)ChapterController.CurrentChapter + 1);
+            ChapterController.ChangeChapter(nextChapter);
         }
         else
         {
@@ -112,7 +112,6 @@ public class Chapter3Voice : MonoBehaviour
 
     private bool IsAnimationFinished()
     {
-        // Check if the enemy's animation is done
-        return enemyAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && !enemyAnimator.IsInTransition(0);
+        return EnemyAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && !EnemyAnimator.IsInTransition(0);
     }
 }

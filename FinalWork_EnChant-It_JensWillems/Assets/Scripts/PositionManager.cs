@@ -5,30 +5,31 @@ using System.Collections.Generic;
 
 public class PositionManager : MonoBehaviour
 {
-    [Header("References")]
+    [Header("Positions")]
     public List<Transform> Chapter1Positions = new List<Transform>();
     public List<Transform> Chapter2Positions = new List<Transform>();
     public List<Transform> Chapter3Positions = new List<Transform>();
     public List<Transform> Chapter4Positions = new List<Transform>();
+    [Header("References")]
     public GameObject PlayerGameObject;
     public GameObject TeleportEffectPrefab;
     public GameObject SpawnEffectPrefab;
+    public GameObject Spellbook;
+
     public Transform TeleportEffectParent;
     public Transform SpawnEffectParent;
 
-    public GameObject Spellbook;
-
-    public bool transitioningBetweenChapters = false;
-    private bool _skip;
     public event Action OnSpawnEffectsCompleted;
+    
+    public bool _transitioningBetweenChapters = false;
+    private bool _skip;
+
     public void Start()
     {
         _skip = SceneTransition.skipTeleportEffect;
     }
     public void TeleportToChapter(ChapterController.Chapter targetChapter)
     {
-        Debug.Log("TeleportToChapter method called.");
-
         List<Transform> positions = null;
 
         switch (targetChapter)
@@ -49,20 +50,16 @@ public class PositionManager : MonoBehaviour
 
         if (positions != null && positions.Count > 0)
         {
-            Debug.Log("Teleporting to chapter: " + targetChapter);
-
             Transform newPosition = positions[0];
             if (PlayerGameObject != null)
             {
-                Debug.Log("PlayerGameObject is not null.");
                 if (!_skip)
                 {
-                    transitioningBetweenChapters = false;
+                    _transitioningBetweenChapters = false;
                 }
-                if (!transitioningBetweenChapters)
+                if (!_transitioningBetweenChapters)
                 {
-                    Debug.Log("yes");
-                    transitioningBetweenChapters = true;
+                    _transitioningBetweenChapters = true;
                     StartCoroutine(TeleportWithEffects(newPosition.position, newPosition.rotation));
                 }
             }
@@ -79,16 +76,12 @@ public class PositionManager : MonoBehaviour
 
     private IEnumerator TeleportWithEffects(Vector3 newPosition, Quaternion newRotation)
     {
-        Debug.Log("TeleportWithEffects coroutine called.");
         Spellbook.SetActive(false);
         var playerController = PlayerGameObject.GetComponent<OVRPlayerController>();
         if (playerController != null)
         {
-            Debug.Log("Disabling player controller.");
             playerController.enabled = false;
         }
-
-        Debug.Log("Playing teleportation effects.");
 
         if (TeleportEffectPrefab != null)
         {
@@ -96,13 +89,11 @@ public class PositionManager : MonoBehaviour
             ParticleSystem[] teleportEffects = teleportEffectInstance.GetComponentsInChildren<ParticleSystem>();
             if (teleportEffects.Length > 0)
             {
-                Debug.Log("Playing teleport effects.");
                 foreach (ParticleSystem ps in teleportEffects)
                 {
                     ps.Play();
                 }
-                yield return new WaitForSeconds(4f);
-                Debug.Log("Teleport effects finished.");
+                yield return new WaitForSeconds(3f);
                 Destroy(teleportEffectInstance);
             }
             else
@@ -117,7 +108,6 @@ public class PositionManager : MonoBehaviour
 
         PlayerGameObject.transform.position = newPosition;
         PlayerGameObject.transform.rotation = newRotation;
-        Debug.Log($"Player teleported to {newPosition}.");
 
         if (SpawnEffectPrefab != null)
         {
@@ -132,7 +122,6 @@ public class PositionManager : MonoBehaviour
                     ps.Play();
                 }
                 yield return new WaitForSeconds(spawnEffects[0].main.duration);
-                Debug.Log("Spawn effects finished.");
                 Destroy(spawnEffectInstance);
             }
             else
@@ -147,11 +136,10 @@ public class PositionManager : MonoBehaviour
 
         if (playerController != null)
         {
-            Debug.Log("Enabling player controller.");
             playerController.enabled = true;
         }
 
-        transitioningBetweenChapters = false;
+        _transitioningBetweenChapters = false;
 
         OnSpawnEffectsCompleted?.Invoke();
     }

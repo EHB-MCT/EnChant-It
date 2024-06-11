@@ -5,25 +5,26 @@ public class Chapter2Voice : MonoBehaviour
 {
     [Header("References")]
     public PositionManager PositionManager;
-    public ChapterController chapterController;
+    public ChapterController ChapterController;
     public VoiceAnswers VoiceAnswers;
     public CastingSpell CastingSpell;
+    public GameObject PopUp;
 
     [Header("Audio clips")]
-    public AudioClip[] audioClips;
+    public AudioClip[] AudioClips;
 
-    private AudioSource audioSource;
-    private int currentClipIndex = 0;
+    private AudioSource _audioSource;
+    private int _currentClipIndex = 0;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
 
-        chapterController.OnChapterChanged += HandleChapterChanged;
+        ChapterController.OnChapterChanged += HandleChapterChanged;
 
         PositionManager.OnSpawnEffectsCompleted += HandleSpawnEffectsCompleted;
 
-        if (chapterController.currentChapter == ChapterController.Chapter.Chapter2)
+        if (ChapterController.CurrentChapter == ChapterController.Chapter.Chapter2)
         {
             StartCoroutine(PlayDialogue());
         }
@@ -31,7 +32,7 @@ public class Chapter2Voice : MonoBehaviour
 
     private void OnDestroy()
     {
-        chapterController.OnChapterChanged -= HandleChapterChanged;
+        ChapterController.OnChapterChanged -= HandleChapterChanged;
         PositionManager.OnSpawnEffectsCompleted -= HandleSpawnEffectsCompleted;
     }
 
@@ -39,7 +40,7 @@ public class Chapter2Voice : MonoBehaviour
     {
         if (newChapter == ChapterController.Chapter.Chapter2)
         {
-            if (PositionManager.transitioningBetweenChapters)
+            if (PositionManager._transitioningBetweenChapters)
             {
             }
             else
@@ -51,7 +52,7 @@ public class Chapter2Voice : MonoBehaviour
 
     private void HandleSpawnEffectsCompleted()
     {
-        if (chapterController.currentChapter == ChapterController.Chapter.Chapter2)
+        if (ChapterController.CurrentChapter == ChapterController.Chapter.Chapter2)
         {
             StartCoroutine(PlayDialogue());
         }
@@ -59,45 +60,48 @@ public class Chapter2Voice : MonoBehaviour
 
     private IEnumerator PlayDialogue()
     {
-        while (currentClipIndex < audioClips.Length)
+        while (_currentClipIndex < AudioClips.Length)
         {
-            audioSource.clip = audioClips[currentClipIndex];
-            audioSource.Play();
+            _audioSource.clip = AudioClips[_currentClipIndex];
+            _audioSource.Play();
 
-            yield return new WaitForSeconds(audioClips[currentClipIndex].length);
+            yield return new WaitForSeconds(AudioClips[_currentClipIndex].length);
 
-            if (currentClipIndex == 0 && !VoiceAnswers.Answer)
+            if (_currentClipIndex == 0 && !VoiceAnswers.Answer)
             {
-                //yield return new WaitUntil(() => VoiceAnswers.Answer);
             }
-            if (currentClipIndex == 2 && !CastingSpell.CastFireSpell)
+            if (_currentClipIndex == 2 && !CastingSpell.CastFireSpell)
             {
                 yield return new WaitUntil(() => CastingSpell.CastFireSpell);
             }
-            if (currentClipIndex == 4 && !VoiceAnswers.Answer)
+            if (_currentClipIndex == 4 && !VoiceAnswers.Answer)
             {
+                PopUp.SetActive(true);
                 VoiceAnswers.CanUpdateAnswer = true;
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
                 VoiceAnswers.Answer = false;
-                VoiceAnswers.CanUpdateAnswer = false; // Reset the flag
+                VoiceAnswers.CanUpdateAnswer = false;
+                PopUp.SetActive(false);
             }
 
-            if (currentClipIndex == 6 && !VoiceAnswers.Answer)
+            if (_currentClipIndex == 6 && !VoiceAnswers.Answer)
             {
                 VoiceAnswers.CanUpdateAnswer = true;
+                PopUp.SetActive(true);
                 yield return new WaitUntil(() => VoiceAnswers.Answer);
                 VoiceAnswers.Answer = false;
-                VoiceAnswers.CanUpdateAnswer = false; // Reset the flag
+                VoiceAnswers.CanUpdateAnswer = false;
+                PopUp.SetActive(false);
             }
-            currentClipIndex++;
+            _currentClipIndex++;
         }
 
        
-        if (chapterController.currentChapter == ChapterController.Chapter.Chapter2)
+        if (ChapterController.CurrentChapter == ChapterController.Chapter.Chapter2)
         {
-            ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)chapterController.currentChapter + 1);
+            ChapterController.Chapter nextChapter = (ChapterController.Chapter)((int)ChapterController.CurrentChapter + 1);
 
-           chapterController.ChangeChapter(nextChapter);
+           ChapterController.ChangeChapter(nextChapter);
         }
         else
         {
