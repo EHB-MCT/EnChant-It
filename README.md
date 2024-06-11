@@ -1,37 +1,37 @@
-#EnChant-it
+# EnChant-it
 
 EnChant-it is an immersive VR game developed with Unity, where players use voice commands to cast spells, solve puzzles, and navigate a magical world. Dive into an enchanting adventure and unleash your inner sorcerer!
 
-##Table of Contents
-Features
-Demo
-Installation
-Usage
-Gameplay Instructions
-Development
-Contact
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Gameplay Instructions](#gameplay-instructions)
+- [Development](#development)
+- [Contact](#contact)
 
-#Features
-* Voice Control: Use natural language commands to interact with the game world.
-* Immersive VR Experience: Fully integrated VR environment providing a captivating gaming experience.
-* Dynamic Spells: Cast various spells by speaking incantations.
+## Features
+- **Voice Control**: Use natural language commands to interact with the game world.
+- **Immersive VR Experience**: Fully integrated VR environment providing a captivating gaming experience.
+- **Dynamic Spells**: Cast various spells by speaking incantations.
 
-#Installation
-Prerequisites
-* Unity 2022.3.10f1 or later
-* Oculus Integration Package
-* VR headset (Oculus Quest 2)
+## Installation
 
-##Open in Unity
+### Prerequisites
+- Unity 2022.3.10f1 or later
+- Oculus Integration Package
+- VR headset (Oculus Quest 2)
 
-##Usage
+### Open in Unity
 
-##Configuration
+## Usage
 
-##Gameplay Instructions
+## Configuration
 
-##Development
+## Gameplay Instructions
 
-##Building the Game
+## Development
 
-##Contact
+### Building the Game
+
+## Contact
