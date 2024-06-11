@@ -1,6 +1,6 @@
 # EnChant-it
 
-EnChant-it is an immersive VR game developed with Unity, where players use voice commands to cast spells, solve puzzles, and navigate a magical world. Dive into an enchanting adventure and unleash your inner sorcerer!
+EnChant-it is an immersive VR game developed with Unity, where players use voice commands to cast spells and navigate a magical world. Dive into an enchanting adventure and unleash your inner sorcerer!
 
 ## Table of Contents
 - [Features](#features)
