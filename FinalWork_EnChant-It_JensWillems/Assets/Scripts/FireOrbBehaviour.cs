@@ -8,9 +8,8 @@ public class FireOrbBehaviour : MonoBehaviour
     [Header("Settings")]
     public float Speed = 5;
     public int DamageAmount = 10;
-    public AudioSource AudioSourceImpact;
+    public AudioSource AudioSource;
     public GameObject ParentGameObject;
-    public AudioSource AudioSourceShoot;
     public ParticleSystem ParticleSystem;
 
     public float Damage = 25f;
@@ -51,10 +50,9 @@ public class FireOrbBehaviour : MonoBehaviour
             }
 
             Debug.Log("hit!");
-            AudioSourceImpact.Play();
-            AudioSourceShoot.Stop();
+            AudioSource.Play();
             ParticleSystem.Stop();
-
+            Destroy(gameObject);
             if (ParentGameObject != null)
             {
                 StartCoroutine(StopParticlesAfterDelay());
@@ -77,7 +75,7 @@ public class FireOrbBehaviour : MonoBehaviour
 
     private IEnumerator StopParticlesAfterDelay()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 2; i++)
         {
             yield return null;
         }
@@ -102,7 +100,7 @@ public class FireOrbBehaviour : MonoBehaviour
 
     private IEnumerator StopParticlesAndDestroyAfterDelay()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(2);
 
         ParticleSystem[] particleSystems = ParentGameObject.GetComponentsInChildren<ParticleSystem>();
         foreach (ParticleSystem ps in particleSystems)

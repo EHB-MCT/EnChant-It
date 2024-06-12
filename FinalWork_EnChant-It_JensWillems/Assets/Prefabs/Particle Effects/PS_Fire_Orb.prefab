@@ -24199,9 +24199,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 50
   DamageAmount: 50
-  AudioSourceImpact: {fileID: 3354322739658776814}
+  AudioSource: {fileID: 3354322739658776814}
   ParentGameObject: {fileID: 7744098581499044749}
-  AudioSourceShoot: {fileID: 1030561116728931387}
   ParticleSystem: {fileID: 6692653581880968163}
   Damage: 50
 --- !u!82 &3354322739658776814
