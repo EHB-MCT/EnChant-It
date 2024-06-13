@@ -21,6 +21,7 @@ EnChant-it is an immersive VR game developed with Unity, where players use voice
 - Unity 2022.3.10f1 or later
 - Oculus Integration Package
 - VR headset (Oculus Quest 2)
+- Universal Render Pipeline
 
 ### Open in Unity
 
