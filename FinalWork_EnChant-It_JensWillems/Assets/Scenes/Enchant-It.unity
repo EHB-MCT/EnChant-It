@@ -17007,7 +17007,7 @@ PrefabInstance:
     - target: {fileID: 6795377243496326982, guid: 3849f8646c9b35240ac012de2087ae57, type: 3}
       propertyPath: Player
       value: 
-      objectReference: {fileID: 478559722}
+      objectReference: {fileID: 2134141067}
     - target: {fileID: 8889208566923941220, guid: 3849f8646c9b35240ac012de2087ae57, type: 3}
       propertyPath: LightsModule.light
       value: 
