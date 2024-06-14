@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     public float RoundInterval = 10f;
     public GameObject[] SpawnPoints;
     public GameObject EnemyPrefabs;
-    public GameObject PauseMenu;
     public TextMeshProUGUI RoundNum;
     public TextMeshProUGUI RoundsSurvived;
     public GameObject EndScreen;

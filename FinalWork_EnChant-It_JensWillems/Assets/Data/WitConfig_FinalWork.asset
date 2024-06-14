@@ -31,9 +31,7 @@ MonoBehaviour:
         id: 1549043715826302
     - id: 387765536946491
       name: cast_BookMenu
-      entities:
-      - name: Book:Book
-        id: 853838803281511
+      entities: []
     - id: 1143109586895071
       name: cast_MainMenu
       entities:

@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.54509807, g: 0.8784314, b: 0.2509804, a: 1}
+      maxColor: {r: 0, g: 1, b: 0.46255493, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5051,7 +5051,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.54381466, g: 0.8773585, b: 0.25244746, a: 1}
+      maxColor: {r: 0, g: 1, b: 0.46255493, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9879,7 +9879,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.4862913, g: 1, b: 0.033018887, a: 1}
+      maxColor: {r: 0, g: 1, b: 0.46255493, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14533,9 +14533,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da216890ece3d04eb8da2ea5faa5976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healAmount: 20
-  healInterval: 1
-  duration: 6
+  HealAmount: 20
+  HealInterval: 1
+  Duration: 6
 --- !u!82 &6342089220440311503
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14855,7 +14855,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.54509807, g: 0.8784314, b: 0.2509804, a: 1}
+      maxColor: {r: 0, g: 1, b: 0.46255493, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
