@@ -23,7 +23,7 @@ EnChant-it is an immersive VR game developed with Unity, where players use voice
 ### Open in Unity
 1. In the installations folder you will find a unity package.
 2. Create a new 3D project in Unity with Universal Render Pipeline (URP)
-3. Install the Oculus Integration Package on the Unity Store 
+3. Install the Oculus Integration Package on the Unity Store without the Voice folder. 
 https://assetstore.unity.com/packages/tools/integration/oculus-integration-deprecated-82022
 4. Under Assets -> Import Package -> Custom Package, Add the package in the Installations folder
 or use the github url https://github.com/EHB-MCT/EnChant-It.git 
@@ -35,6 +35,7 @@ or use the github url https://github.com/EHB-MCT/EnChant-It.git
 2. Connect VR Headset: Ensure your Oculus Quest 2 is properly connected to your development PC.
 3. Run the Game: Click on the play button in Unity to start the game in the editor or build and run on your Oculus Quest 2.
 4. Voice Setup: Ensure your microphone is properly set up to allow voice command detection.
+4.1 To edit Wit.AI: https://wit.ai/apps/463614296164425/intents
 
 ## Configuration
 ### Audio Settings
