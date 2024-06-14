@@ -8231,9 +8231,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1796246315}
-    - targetCorrespondingSourceObject: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1638141274}
     - targetCorrespondingSourceObject: {fileID: 462066, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1493067225}
@@ -10175,56 +10172,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3693701041110744652, guid: d90580d163999b54d96eb79806e0f709, type: 3}
   m_PrefabInstance: {fileID: 1636997079}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1638141272
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1638141274}
-  - component: {fileID: 1638141273}
-  m_Layer: 0
-  m_Name: WindSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1638141273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1638141272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18b173c98f355444d90a4107139350e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WindPrefab: {fileID: 6274001701389860702, guid: c0887a9d468645a4282225a3d9962277, type: 3}
-  WindT: {fileID: 1638141272}
-  NumberOfWindInstances: 3
-  MinSpawnInterval: 5
-  MaxSpawnInterval: 10
-  SpawnRadius: 100
---- !u!4 &1638141274
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1638141272}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7808385, z: -0, w: 0.6247331}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 478559722}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1648877106
 PrefabInstance:
   m_ObjectHideFlags: 0
